@@ -4,6 +4,20 @@ import json
 import transactions
 import hashlib
 
+app = Flask(__name__)
+app.config['PROPAGATE_EXCEPTIONS']=True
+
+@app.route('/', methods=['GET'])
+def home():
+    responsejson = {}
+    responsejson['message']="AssemblyCoins V2"
+
+    responsejson=json.dumps(responsejson)
+    response=make_response(responsejson, 200)
+    response.headers['Content-Type'] = 'application/json'
+    response.headers['Access-Control-Allow-Origin']= '*'
+    return response
+
 @app.route('/v2/colors/issue', methods=['POST'])   #WORKS
 def givenewaddress_specifics():
     jsoninput=json.loads(request.data)
