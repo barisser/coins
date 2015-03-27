@@ -1,5 +1,6 @@
 import db
 import coinprism
+import transactions
 
 def worker_cycle():
     send_plain_btc()
@@ -7,6 +8,7 @@ def worker_cycle():
     transfer_colors()
 
 def send_plain_btc():
+
 
 def issue_colors():
 
