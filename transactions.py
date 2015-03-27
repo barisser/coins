@@ -1,7 +1,7 @@
 #import db
 import hashlib
 import os
-import bitcoin as pybitcointools
+import bitcoin
 import json
 import requests
 import coinprism

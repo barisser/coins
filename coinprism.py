@@ -1,16 +1,16 @@
 import requests
 import json
-import pybitcointools
+import bitcoin
 import os
 
 def sign_tx(unsigned_raw_tx, privatekey):
   tx2=unsigned_raw_tx
 
-  detx=pybitcointools.deserialize(tx2)
+  detx=bitcoin.deserialize(tx2)
   input_length=len(detx['ins'])
 
   for i in range(0,input_length):
-    tx2=pybitcointools.sign(tx2,i,privatekey)
+    tx2=bitcoin.sign(tx2,i,privatekey)
 
   return tx2
 
