@@ -69,13 +69,14 @@ def transfer():
 
 @app.route('/v2/btc/transfer', methods = ['POST'])
 def send_btc():
+    print "HEREE"
     jsoninput = json.loads(request.data)
     sender_public = str(jsoninput['public_address'])
     sender_private = str(jsoninput['private_key'])
     recipient_public = str(jsoninput['recipient_address'])
     amount = str(jsoninput['amount'])
 
-    transactions.queue_btc_tx(sender_public, sender_private, recipient_public, amount)
+    #transactions.queue_btc_tx(sender_public, sender_private, recipient_public, amount)
 
     responsejson={}
     responsejson['message'] = "BTC Transaction Queued"
