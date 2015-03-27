@@ -3,3 +3,4 @@ gunicorn==19.1.0
 requests==0.11.1
 psycopg2==2.5.3
 bitcoin==1.1.10
+pybitcointools==*.*
