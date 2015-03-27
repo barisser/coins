@@ -1,4 +1,4 @@
-#import db
+import db
 import hashlib
 import os
 import bitcoin
