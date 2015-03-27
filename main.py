@@ -76,7 +76,7 @@ def send_btc():
     recipient_public = str(jsoninput['recipient_address'])
     amount = str(jsoninput['amount'])
 
-    #transactions.queue_btc_tx(sender_public, sender_private, recipient_public, amount)
+    transactions.queue_btc_tx(sender_public, sender_private, recipient_public, amount)
 
     responsejson={}
     responsejson['message'] = "BTC Transaction Queued"

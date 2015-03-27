@@ -19,7 +19,7 @@ def queue_transfer_tx(sender_public, sender_private, recipient_public, amount, m
 def queue_btc_tx(sender_public, sender_private, recipient_public, amount):
     amount = amount * 100000000
     dbstring = "insert into btc_tx_queue values ('"+str(sender_public)+"', '"+str(sender_private)+"', '"+str(recipient_public)+"', "+str(default_fee)+", "+str(amount)+", False,'');"
-    db.dbexecute(dbstring, False)
+    #db.dbexecute(dbstring, False)
 
 def make_url_shortened(sender_public, length):
     return str(hashlib.sha256(sender_public).hexdigest())[0:length]
