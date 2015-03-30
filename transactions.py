@@ -13,7 +13,7 @@ def queue_issuing_tx(source_address, recipient_address, source_private, metadata
     db.dbexecute(dbstring, False)
 
 def queue_transfer_tx(sender_public, sender_private, recipient_public, amount, metadata, asset_address):
-    dbstring = "insert into color_transfer_tx_queue values ('"+str(sender_public)+"', '"+str(sender_private)+"', '"+str(recipient_public)+"', "+str(default_fee)+", '"+str(asset_address)+"', "+str(amount)+", False, '"+str(metadata)+"', '"+str(random_id())+"');"
+    dbstring = "insert into color_transfer_tx_queue values ('"+str(sender_public)+"', '"+str(sender_private)+"', '"+str(recipient_public)+"', "+str(default_fee)+", '"+str(asset_address)+"', "+str(amount)+", False, '','"+str(metadata)+"', '"+str(random_id())+"');"
     db.dbexecute(dbstring, False)
 
 def random_id():
