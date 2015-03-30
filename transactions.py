@@ -9,7 +9,7 @@ import coinprism
 default_fee = 5000
 
 def queue_issuing_tx(source_address, recipient_address, source_private, metadata, amount):
-    dbstring = "insert into color_issue_tx_queue values ('"+str(source_address)+"', '"+str(source_private)+"', '"+str(recipient_address)+"', "+str(default_fee)+", '', "+str(amount)+", False, '"+str(metadata)+"', '"+str(random_id())+"');"
+    dbstring = "insert into color_issue_tx_queue values ('"+str(source_address)+"', '"+str(source_private)+"', '"+str(recipient_address)+"', "+str(default_fee)+", '', "+str(amount)+", False, '', '"+str(metadata)+"', '"+str(random_id())+"');"
     db.dbexecute(dbstring, False)
 
 def queue_transfer_tx(sender_public, sender_private, recipient_public, amount, metadata, asset_address):
