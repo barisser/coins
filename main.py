@@ -3,7 +3,7 @@ import requests
 import json
 import transactions
 import hashlib
-import cointools
+import addresses
 
 app = Flask(__name__)
 app.config['PROPAGATE_EXCEPTIONS']=True
