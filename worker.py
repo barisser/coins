@@ -1,5 +1,6 @@
 import db
 import coinprism
+import time
 import transactions
 
 def worker_cycle():
@@ -56,3 +57,11 @@ def transfer_colors():
         if len(txhash) > 10:
             dbstring = "update color_transfer_tx_queue set txhash='"+str(txhash)+"', success=True where randomid='"+str(randomid)+"';"
             db.dbexecute(dbstring, False)
+
+
+start=time.time()
+interval=30
+while True:
+  if time.time()>=interval+start:
+    start=time.time()
+    worker_cycle()
