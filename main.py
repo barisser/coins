@@ -3,6 +3,7 @@ import requests
 import json
 import transactions
 import hashlib
+import cointools
 
 app = Flask(__name__)
 app.config['PROPAGATE_EXCEPTIONS']=True
@@ -69,7 +70,6 @@ def transfer():
 
 @app.route('/v2/btc/transfer', methods = ['POST'])
 def send_btc():
-    print "HEREE"
     jsoninput = json.loads(request.data)
     sender_public = str(jsoninput['public_address'])
     sender_private = str(jsoninput['private_key'])
@@ -86,6 +86,20 @@ def send_btc():
     response.headers['Content-Type'] = 'application/json'
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
+
+@app.route('/v2/addresses/')
+def new_address():
+    responsejson={}
+    a = addresses.random_address_pair()
+    responsejson['private_key'] = a[0]
+    responsejson['public_key'] = a[1]
+    responsekson['public_address'] = a[2]
+    responsejson=json.dumps(responsejson)
+    response=make_response(responsejson, 200)
+    response.headers['Content-Type'] = 'application/json'
+    response.headers['Access-Control-Allow-Origin']= '*'
+    return response
+
 
 
 if __name__ == '__main__':
