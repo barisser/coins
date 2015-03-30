@@ -9,12 +9,15 @@ import coinprism
 default_fee = 5000
 
 def queue_issuing_tx(source_address, recipient_address, source_private, metadata, amount):
-    dbstring = "insert into color_issue_tx_queue values ('"+str(source_address)+"', '"+str(source_private)+"', '"+str(recipient_address)+"', "+str(default_fee)+", '', "+str(amount)+", False, '"+str(metadata)+"');"
+    dbstring = "insert into color_issue_tx_queue values ('"+str(source_address)+"', '"+str(source_private)+"', '"+str(recipient_address)+"', "+str(default_fee)+", '', "+str(amount)+", False, '"+str(metadata)+"', '"+str(random_id())+"');"
     db.dbexecute(dbstring, False)
 
 def queue_transfer_tx(sender_public, sender_private, recipient_public, amount, metadata, asset_address):
-    dbstring = "insert into color_transfer_tx_queue values ('"+str(sender_public)+"', '"+str(sender_private)+"', '"+str(recipient_public)+"', "+str(default_fee)+", '"+str(asset_address)+"', "+str(amount)+", False, '"+str(metadata)+"');"
+    dbstring = "insert into color_transfer_tx_queue values ('"+str(sender_public)+"', '"+str(sender_private)+"', '"+str(recipient_public)+"', "+str(default_fee)+", '"+str(asset_address)+"', "+str(amount)+", False, '"+str(metadata)+"', '"+str(random_id())+"');"
     db.dbexecute(dbstring, False)
+
+def random_id():
+    return str(hashlib.sha256(str(os.urandom(100))).hexdigest())
 
 def queue_btc_tx(sender_public, sender_private, recipient_public, amount):
     print sender_public
@@ -22,7 +25,7 @@ def queue_btc_tx(sender_public, sender_private, recipient_public, amount):
     print recipient_public
     print amount
     amount = float(amount) * 100000000
-    dbstring = "insert into btc_tx_queue values ('"+str(sender_public)+"', '"+str(sender_private)+"', '"+str(recipient_public)+"', "+str(default_fee)+", "+str(amount)+", False,'');"
+    dbstring = "insert into btc_tx_queue values ('"+str(sender_public)+"', '"+str(sender_private)+"', '"+str(recipient_public)+"', "+str(default_fee)+", "+str(amount)+", False,'', '"+str(random_id())+"');"
     db.dbexecute(dbstring, False)
 
 def make_url_shortened(sender_public, length):
@@ -44,4 +47,4 @@ def send_btc_chain(from_addr, destination_address, btc_value):
 def send_btc(from_addr, private_key, destination_address, btc_value):
     a = send_btc_chain(from_addr, destination_address, btc_value)
     b = coinprism.sign_tx(a, private_key)
-    coinprism.pushtx(b)
+    return coinprism.pushtx(b)
