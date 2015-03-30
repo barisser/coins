@@ -4,6 +4,7 @@ import json
 import transactions
 import hashlib
 import addresses
+import coinprism
 
 app = Flask(__name__)
 app.config['PROPAGATE_EXCEPTIONS']=True
@@ -31,7 +32,7 @@ def givenewaddress_specifics():
     dest_address=public_address
 
     #shortened = transactions.make_url_shortened(public_address, 8)
-    metadata = ""#"https://coins.assembly.com/colors/"+str(shortened)
+    metadata = str(jsoninput['metadata'])
     transactions.queue_issuing_tx(public_address, dest_address, private_key, metadata, color_amount, coin_name)
     tosend = transactions.default_fee * 0.00000001
 
@@ -94,6 +95,17 @@ def new_address():
     responsejson['private_key'] = a[0]
     responsejson['public_key'] = a[1]
     responsejson['public_address'] = a[2]
+    responsejson=json.dumps(responsejson)
+    response=make_response(responsejson, 200)
+    response.headers['Content-Type'] = 'application/json'
+    response.headers['Access-Control-Allow-Origin']= '*'
+    return response
+
+@app.route('/v2/colors/asset_address/<btc_address>')
+def get_asset_address(btc_address=None):
+    a = coinprism.get_asset_id(btc_address)
+    responsejson = {}
+    responsejson['asset_address'] = a
     responsejson=json.dumps(responsejson)
     response=make_response(responsejson, 200)
     response.headers['Content-Type'] = 'application/json'
