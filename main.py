@@ -32,7 +32,7 @@ def givenewaddress_specifics():
 
     #shortened = transactions.make_url_shortened(public_address, 8)
     metadata = ""#"https://coins.assembly.com/colors/"+str(shortened)
-    transactions.queue_issuing_tx(public_address, dest_address, private_key, metadata, color_amount)
+    transactions.queue_issuing_tx(public_address, dest_address, private_key, metadata, color_amount, name)
     tosend = transactions.default_fee * 0.00000001
 
     responsejson={}
@@ -99,8 +99,6 @@ def new_address():
     response.headers['Content-Type'] = 'application/json'
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
-
-
 
 if __name__ == '__main__':
     app.run()

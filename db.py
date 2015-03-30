@@ -45,3 +45,20 @@ def unsent_transfer_txs():
     dbstring = "select * from color_transfer_tx_queue where success='False';"
     a = dbexecute(dbstring, True)
     return a
+
+def issued_without_asset_address():
+    dbstring = "select * from color_issue_tx_queue where asset_address='' and success=True;"
+    a = dbexecute(dbstring, True)
+    return a
+
+def assets_without_address():
+    dbstring = "select * from assets where asset_address='';"
+    return dbexecute(dbstring, True)
+
+def add_asset(name, source_address, asset_address, metadata):
+    dbstring = "insert into assets values ('"+str(name)+"', '"+str(source_address)+"', '"+str(asset_address)+"', '"+str(metadata)+"');"
+    dbexecute(dbstring, False)
+
+def update_asset_address_on_asset(name, source_address, asset_address):
+    dbstring = "update assets set asset_address='"+str(asset_address)+"' where name='"+str(name)+"' and source_address='"+str(source_address)+"';"
+    dbexecute(dbstring, False)
