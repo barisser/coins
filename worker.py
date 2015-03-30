@@ -17,7 +17,7 @@ def send_plain_btc():
         receiver_public = tx[2]
         fee = tx[3] #satoshi
         amount = tx[4] #satoshi
-        randomid = tx[6]
+        randomid = tx[7]
 
         btc_value = amount*0.00000001
         txhash = transactions.send_btc(sender_public, sender_private, receiver_public, btc_value)
@@ -25,7 +25,8 @@ def send_plain_btc():
         print txhash
         print len(txhash)
         if len(txhash)>10:
-            db.dbexecute("update btc_tx_queue set txhash='"+str(txhash)+"', success=True where randomid='"+str(randomid)+"';", False)
+            dbstring = "update btc_tx_queue set txhash='"+str(txhash)+"', success=True where randomid='"+str(randomid)+"';"
+            db.dbexecute(dbstring, False)
 
 def issue_colors():
     txs = db.unsent_issue_txs()
