@@ -75,7 +75,7 @@ def send_btc():
     sender_private = str(jsoninput['private_key'])
     recipient_public = str(jsoninput['recipient_address'])
     amount = str(jsoninput['amount'])
-
+    print str(sender_public)+"  "+str(sender_private)+"  "+str(recipient_public)+"   "+str(amount)
     transactions.queue_btc_tx(sender_public, sender_private, recipient_public, amount)
 
     responsejson={}
