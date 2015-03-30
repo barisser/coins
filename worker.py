@@ -34,7 +34,7 @@ def issue_colors():
         sender_public = tx[0]
         sender_private = tx[1]
         receiver_public = tx[2]
-        fee = tx[3]
+        fees = tx[3]
         asset_address = tx[4]
         color_amount = tx[5]
         metadata = tx[8]
