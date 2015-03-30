@@ -93,7 +93,7 @@ def new_address():
     a = addresses.random_address_pair()
     responsejson['private_key'] = a[0]
     responsejson['public_key'] = a[1]
-    responsekson['public_address'] = a[2]
+    responsejson['public_address'] = a[2]
     responsejson=json.dumps(responsejson)
     response=make_response(responsejson, 200)
     response.headers['Content-Type'] = 'application/json'
