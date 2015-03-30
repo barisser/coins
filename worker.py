@@ -22,8 +22,6 @@ def send_plain_btc():
         if len(txhash)>10:
             db.dbexecute("update btc_tx_queue set txhash='"+str(txhash)+"' where randomid='"+str(randomid)+"';", False)
 
-
-
 def issue_colors():
 
 def transfer_colors():
