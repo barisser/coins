@@ -98,6 +98,7 @@ def issue_asset_unsigned_raw(from_address, to_btc_address, amount, metadata, fee
 
 def issue_asset(from_address, to_btc_address, amount, metadata, fees, private_key):
     rawtx = issue_asset_unsigned_raw(from_address, to_btc_address, amount, metadata, fees)
+    print rawtx
     rawtx = str(rawtx['raw'])
     tx = sign_tx(rawtx, private_key)
     #resp = push_tx_coinprism(tx)
