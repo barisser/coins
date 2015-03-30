@@ -35,3 +35,13 @@ def unsent_btc_transfers():
     dbstring = "select * from btc_tx_queue where success='False';"
     a = dbexecute(dbstring, True)
     return a
+
+def unsent_issue_txs():
+    dbstring = "select * from color_issue_tx_queue where success='False';"
+    a = dbexecute(dbstring, True)
+    return a
+
+def unsent_transfer_txs():
+    dbstring = "select * from color_transfer_tx_queue where success='False';"
+    a = dbexecute(dbstring, True)
+    return a
