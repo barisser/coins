@@ -9,30 +9,27 @@ import util
 
 default_fee = 3000
 
-def queue_issuing_tx(source_address, recipient_address, source_private, metadata, amount, name):
+def queue_issuing_tx(source_address, recipient_address, source_private, metadata, amount, name, identifier):
     if metadata[0:2]== "u=":
         metadata = "u="+util.shorten_url(metadata[2:len(metadata)])
-    dbstring = "insert into color_issue_tx_queue values ('"+str(source_address)+"', '"+str(source_private)+"', '"+str(recipient_address)+"', "+str(default_fee)+", '', "+str(amount)+", False, '', '"+str(metadata)+"', '"+str(random_id())+"', '"+str(name)+"');"
+    dbstring = "insert into color_issue_tx_queue values ('"+str(source_address)+"', '"+str(source_private)+"', '"+str(recipient_address)+"', "+str(default_fee)+", '', "+str(amount)+", False, '', '"+str(metadata)+"', '"+str(identifier)+"', '"+str(name)+"');"
     db.dbexecute(dbstring, False)
 
-def queue_transfer_tx(sender_public, sender_private, recipient_public, amount, metadata, asset_address):
-    dbstring = "insert into color_transfer_tx_queue values ('"+str(sender_public)+"', '"+str(sender_private)+"', '"+str(recipient_public)+"', "+str(default_fee)+", '"+str(asset_address)+"', "+str(amount)+", False, '','"+str(metadata)+"', '"+str(random_id())+"');"
+def queue_transfer_tx(sender_public, sender_private, recipient_public, amount, metadata, asset_address, identifier):
+    dbstring = "insert into color_transfer_tx_queue values ('"+str(sender_public)+"', '"+str(sender_private)+"', '"+str(recipient_public)+"', "+str(default_fee)+", '"+str(asset_address)+"', "+str(amount)+", False, '','"+str(metadata)+"', '"+str(identifier)+"');"
     db.dbexecute(dbstring, False)
 
 def random_id():
     return str(hashlib.sha256(str(os.urandom(100))).hexdigest())
 
-def queue_btc_tx(sender_public, sender_private, recipient_public, amount):
+def queue_btc_tx(sender_public, sender_private, recipient_public, amount, identifier):
     print sender_public
     print sender_private
     print recipient_public
     print amount
     amount = float(amount) * 100000000
-    dbstring = "insert into btc_tx_queue values ('"+str(sender_public)+"', '"+str(sender_private)+"', '"+str(recipient_public)+"', "+str(default_fee)+", "+str(amount)+", False,'', '"+str(random_id())+"');"
+    dbstring = "insert into btc_tx_queue values ('"+str(sender_public)+"', '"+str(sender_private)+"', '"+str(recipient_public)+"', "+str(default_fee)+", "+str(amount)+", False,'', '"+str(identifier)+"');"
     db.dbexecute(dbstring, False)
-
-def make_url_shortened(sender_public, length):
-    return str(hashlib.sha256(sender_public).hexdigest())[0:length]
 
 def send_btc_chain(from_addr, destination_address, btc_value):
     btc_value = btc_value * 100000000

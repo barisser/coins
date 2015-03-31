@@ -21,10 +21,14 @@ def send_plain_btc():
         randomid = tx[7]
 
         btc_value = amount*0.00000001
-        txhash = transactions.send_btc(sender_public, sender_private, receiver_public, btc_value)
-        print "TXHASH"
-        print txhash
-        print len(txhash)
+        try:
+            txhash = transactions.send_btc(sender_public, sender_private, receiver_public, btc_value)
+            print "TXHASH"
+            print txhash
+        except:
+            print "ERROR MAKING TX"
+            txhash = 'fail'
+
         if len(txhash)>10:
             dbstring = "update btc_tx_queue set txhash='"+str(txhash)+"', success=True where randomid='"+str(randomid)+"';"
             db.dbexecute(dbstring, False)

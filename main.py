@@ -22,11 +22,12 @@ def givenewaddress_specifics():
 
     coin_name=str(jsoninput['name'])
     color_amount=str(jsoninput['coins'])
+    identifier = str(jsoninput['identifier'])
     dest_address=public_address
 
     #shortened = transactions.make_url_shortened(public_address, 8)
     metadata = str(jsoninput['metadata'])
-    transactions.queue_issuing_tx(public_address, dest_address, private_key, metadata, color_amount, coin_name)
+    transactions.queue_issuing_tx(public_address, dest_address, private_key, metadata, color_amount, coin_name, identifier)
     tosend = transactions.default_fee * 0.00000001
 
     responsejson={}
@@ -50,8 +51,9 @@ def transfer():
     amount = str(jsoninput['amount'])
     metadata = ""
     asset_address = str(jsoninput['asset_address'])
+    identifier = str(jsoninput['identifier'])
 
-    transactions.queue_transfer_tx(sender_public, sender_private, recipient_public, amount, metadata, asset_address)
+    transactions.queue_transfer_tx(sender_public, sender_private, recipient_public, amount, metadata, asset_address, identifier)
 
     responsejson={}
     responsejson['message'] = "Color Transaction Queued"
@@ -69,8 +71,9 @@ def send_btc():
     sender_private = str(jsoninput['private_key'])
     recipient_public = str(jsoninput['recipient_address'])
     amount = str(jsoninput['amount'])
+    identifier = str(jsoninput['identifier'])
     print str(sender_public)+"  "+str(sender_private)+"  "+str(recipient_public)+"   "+str(amount)
-    transactions.queue_btc_tx(sender_public, sender_private, recipient_public, amount)
+    transactions.queue_btc_tx(sender_public, sender_private, recipient_public, amount, identifier)
 
     responsejson={}
     responsejson['message'] = "BTC Transaction Queued"
