@@ -6,19 +6,12 @@ import hashlib
 import addresses
 import coinprism
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 app.config['PROPAGATE_EXCEPTIONS']=True
 
 @app.route('/', methods=['GET'])
 def home():
-    responsejson = {}
-    responsejson['message']="AssemblyCoins V2"
-
-    responsejson=json.dumps(responsejson)
-    response=make_response(responsejson, 200)
-    response.headers['Content-Type'] = 'application/json'
-    response.headers['Access-Control-Allow-Origin']= '*'
-    return response
+  return app.send_static_file('main.html')
 
 @app.route('/v2/colors/issue', methods=['POST'])   #WORKS
 def givenewaddress_specifics():

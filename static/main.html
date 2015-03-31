@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Assembly Coins</title>
+    <meta name="description" content="">
+
+    <link rel="canonical" href="https://coins.assembly.com">
+
+    <!-- Styles -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <!-- Javascript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="masthead omega">
+  <div class="masthead-img" style="background-image:url(/images/city.jpg)"></div>
+
+  <div class="masthead-navbar">
+    <nav class="navbar masthead-navbar navbar-static-top omega" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#coins-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        <img class="img-circle" src="/images/logo.png" style="max-width:30px;margin-right:10px;margin-top:-5px">
+        <span>Assembly</span> Coins
+      </a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="coins-navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="">
+          <a href="/quickstart">Quickstart</a>
+        </li>
+        <li class="">
+          <a href="/docs">API Docs</a>
+        </li>
+        <li class="">
+          <a href="/whitepaper">Whitepaper</a>
+        </li>
+        <li>
+          <a href="https://github.com/assemblymade/assemblycoins">Code</a>
+        </li>
+        <li>
+          <a href="https://assembly.com/assemblycoins">Assembly</a>
+        </li>
+
+        <form class="navbar-form navbar-left" role="search">
+           <div class="form-group">
+             <input type="text" id="searchbox" class="form-control input-lg" placeholder="Address or Color">
+          </div>
+          <button type="submit" class="btn btn-lg masthead-btn">Search</button>
+        </form>
+
+        <!-- <li>
+          <a href="https://twitter.com/asm">@asm</a>
+        </li> -->
+      </ul>
+    </div><!-- .navbar-collapse -->
+  </div><!-- .container -->
+</nav><!-- .navbar -->
+
+
+
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$("form").submit(function(event){
+  event.preventDefault();
+  search();
+});
+
+</script>
+
+<script>
+
+function allLetter(inputtxt)
+  {
+   var letters = /^[A-Za-z]+$/;
+   if(inputtxt.match(letters))
+     {
+      return true;
+     }
+   else
+     {
+     return false;
+     }
+  }
+
+
+function search(){
+
+  var searched = document.getElementById("searchbox");
+  var searchvalue = searched.value;
+  searchvalue = searchvalue.replace(" ", "_");
+  var first = searchvalue.substring(0,1);
+  var url = "https://coins.assembly.com";
+
+  if(first === "1")
+    {
+    url="https://coins.assembly.com/addresses/"+searchvalue;
+    }
+  else if(first === "3")
+    {
+    url="https://coins.assembly.com/colors/"+searchvalue;
+    }
+  else if(allLetter(first))
+    {
+      var search_url="https://coins.assembly.com/v1/colors/name/"+searchvalue.toString();
+      console.log(search_url);
+      var xmlHttp = null;
+      xmlHttp = new XMLHttpRequest();
+      xmlHttp.open( "GET", search_url, false );
+      xmlHttp.send( null );
+      console.log(xmlHttp.responseText);
+      var jsondata=JSON.parse(xmlHttp.responseText);
+      console.log(jsondata);
+      var coloraddress = jsondata['color_address'];
+      url = "https://coins.assembly.com/colors/"+coloraddress;
+    }
+
+
+  window.location=url;
+
+}
+
+
+
+</script>
+
+  </div>
+
+  <div class="jumbotron masthead-jumbotron">
+    <div class="container text-center">
+      <h1>Create your own Cryptocurrency on the <br>Bitcoin blockchain.</h1>
+
+      <p>
+        A trustless and verifiable way to model any asset, from karma to ownership, using the Bitcoin blockchain.
+      </p>
+
+      <br>
+
+      <div class="text-center">
+        <a class="btn btn-lg masthead-btn" href="/whitepaper">Read the Whitepaper</a>
+      </div>
+
+
+
+    </div>
+    <br>
+  </div>
+</div>
+
+
+<div class="callout">
+  <div class="container">
+    <div class="row">
+
+
+      <div class="col-md-4">
+
+        <h2 class="">An Open API for Everyone</h2>
+        <p>
+          Assembly Coins is an open protocol and API implementation that allows you to express ownership of things on the Bitcoin Blockchain. The App Coins you create with the Assembly Coins API are highly secure, trust-less, long-lasting, and easily transferrable.
+        </p>
+        <p>
+          You can create any type of new App Coin and rest assured they cannot be forged. Show that you have 10,000 Karma-Points or trade Emoji-Coins with your colleagues. It's all on the Blockchain.
+        </p>
+      </div>
+
+      <div class="col-md-4">
+        <h2 class="">Decentralizing Ownership</h2>
+        <p>
+          <a href="https://assembly.com">Assembly</a> is decentralizing the concept of ownership of entire companies. We're invested in giving the distributed community building products on Assembly the best tools, extending their cryptographic guarantees of control.
+        </p>
+        <p>
+          With Assembly Coins, an individual's ownership in Assembly products is now transparent and verifiable. For the products already earning income, these product specific coins are used to distribute royalty income back to the people that made the product.
+        </p>
+      </div>
+
+      <div class="col-md-4">
+        <h2 class="">Built with Integrity</h2>
+        <p>
+          There's no premining, no pre-selling, no separate blockchain, and no alt-coin intermediary currency. Everything lives on the Bitcoin blockchain so you don't need to depend on someone's proprietary database. Finally, the protocol is open and the API is open sourced so you can participate in its future. Don't trust us.  Trust Math.
+        </p>
+        <p>
+          We're excited about the the foundation Assembly Coins creates for new cryptographic and analytical tools that augment an individual's ownership.
+        <p>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--
+<div class="callout callout-alt">
+  <div class="container">
+
+    <h1 class="text-center text-teal">Earn 100 App Coins</h1>
+    <br>
+
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <p>
+          You can share in Assembly Coins API future. Its development is <a href="https://assembly.com/assemblycoins">open</a> and profits are split from the small portion of each transaction fee it retains when calls are made to the hosted API.
+        </p>
+        <p>
+Ownership of this API is represented by their own App Coin called ASM Coins. We need beta testers, so we are giving away 100 ASM Coins to the first 10,000 people who join the Assembly Coins product community. As an ASM Coin holder and partner, you'll be entitled to a portion of any future proceeds.
+        </p>
+
+        <hr>
+
+        <form id="email-signup" role="form" data-url="https://assembly.com/api/products/assemblycoins/potential_users">
+
+          <div class="alert alert-success alert-dismissible" role="alert" style="display:none">
+            <button type="button" class="close" data-dismiss="alert">
+              <span aria-hidden="true">&times;</span>
+              <span class="sr-only">Close</span>
+            </button>
+            <p>Successfully subscribed to Assembly Coins. Keep an eye out for your confirmation email and steps to collecting your ASM coins.</p>
+          </div>
+
+          <div class="alert alert-danger alert-dismissible" role="alert" style="display:none">
+            <button type="button" class="close" data-dismiss="alert">
+              <span aria-hidden="true">&times;</span>
+              <span class="sr-only">Close</span>
+            </button>
+            <p>Something went wrong; please try again in a few minutes.</p>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="form-group">
+                <label for="email" class="sr-only">Email address</label>
+                <input class="email form-control input-lg" type="email" name="email" placeholder="Email address">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <button type="submit" class="btn btn-primary btn-lg btn-block">Follow updates</button>
+            </div>
+          </div>
+        </form>
+
+        <em>
+          Entering your email above will keep you posted with updates. We'll also send you a link to complete creating your account to collect your ASM coins.
+        </em>
+
+      </div><!-- .col-md-6 -->
+    </div><!-- .row -->
+  </div>
+</div> -->
+
+<div class="callout">
+  <div class="container text-center text-muted">
+    <h6 class="text-uppercase">Get more involved</h6>
+    <br>
+    <ul class="list-inline omega">
+      <li>Get started with the API:</li>
+      <li><a href="/quickstart#issue-a-new-coin">Create your own App Coin from scratch</a></li>
+      <li><a href="/quickstart#transfer-coins-to-your-wallet">Send some to a friend</a></li>
+      <li><a href="/quickstart#check-your-coin-balance">Keep track of them on the Blockchain</a></li>
+    </ul>
+    <ul class="list-inline">
+      <li>Read the documentation:</li>
+      <li><a href="/whitepaper">Whitepaper</a></li>
+      <li><a href="/docs">API documentation</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="container">
+
+  <h1 class="text-center">FAQ</h1>
+  <br>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h4>If this isn't an altcoin, where do Assembly Coins exist?</h4>
+      <p>Assembly Coins are metacoins, written as an abstract layer on top of Bitcoin.  Imagine watermarking pennies so they had special meaning.  That's what we've done, except we've watermarked small quantities of Bitcoin. </p>
+
+      <h4>What is the difference between transferring and issuing coins?</h4>
+      <p>Issuing coins means creating new coins from thin air. Only the the issuing Bitcoin address, which fundamentally controls the assets, may issue new coins. If another address attempts to issue that same coin color, it will be invalid. Transferring coins means to move existing coins to another address.
+      </p>
+
+      <h4>What happens if I spend my colored coins as regular Bitcoin?</h4>
+      <p>In this case, you render the Colored Coins unspendable. We will still recognize you as owning colored coins, but they will become immobile. Don't spend your Colored Coins as Bitcoin!</p>
+
+      <h4>How is this better than MasterCoin/Counterparty/NXT?</h4>
+      <p>Assembly Coins exist on the Bitcoin Blockchain. While Counterparty, MasterCoin, and NXT all give digital-token capabilities, they all require the use of separate altcoins, which have had presales to enrich their creators. So to use any of these separate systems, one must transact into a separate currency before then manipulating digital tokens. This separate currency is an unfortunate barrier. Assets, even within the cryptocurrency space, suffer price volatility from the exchange rate of MasterCoin versus Bitcoin, etc. This is an unnecessary headache. While the creation of these separate altcoins was a convenient design decision for their creators, we believe there are more optimal solutions for users.</p>
+      <p>Additionally, because we write Colored Coin information on the Bitcoin Blockchain, we better insure the longevity and security of potentially important information. Putting ownership on a less popular altcoin would not be a responsible or enduring way to record ownership.</p>
+
+      <h4>How much does this cost?</h4>
+      <p>You must pay for the Bitcoin transaction fees as defined by the Bitcoin network. We also charge a small fee for using the Assembly Coins API on a per-issuance basis. In other words, to create a new coin, we charge a very small fee. There is nothing intrinsically mandatory about this, however, because users may fork our open-source code and remove the fee requirement, if they so choose.</p>
+      <p>There is no presale, no premine, no catch. We didn't design this to make money on its own. We built it to support ownership of Products on Assembly. Insofar as it may be used for other, non-Assembly-related applications, so much the better.</p>
+    </div><!-- .col-md-6 -->
+
+    <div class="col-md-6">
+      <h4>How much Bitcoin do I need to create or transfer coins?</h4>
+      <p>You need trace amounts of Bitcoin to create or transfer colored coins.  Basically the transaction fees, as defined by miners on the Bitcoin network, and dust. In practice this amounts to approximately 0.00005 BTC (about $0.02 USD) for transfers and about 0.002 BTC (or roughly $0.80 USD) for declarations of new coins but some declarations with more metadata may cost more.  Any address issuing or transferring Colored Coins via this API must have the requisite amounts of regular bitcoin in it, or it will fail.</p>
+
+      <h4>How does this scale?</h4>
+      <p>All the metadata around an Assembly Coin is stored on the Bitcoin Blockchain. Additionally the API monitors the Bitcoin network for Open Assets-compliant transactions and then records them in a database for faster and more efficient retrieval. This allows all colored coin transactions to be traced back to the originating issuing address so they can't be imitated.</p>
+
+      <p>We are working on a client-side version that may allow partial backtracing. For example, as with Bitcoin, where a full wallet client must parse through the entire Blockchain to verify the legitimacy of unspent outputs directed at its address, a client-side version that backtraced transactions directed at itself would improve scaleability for powerusers. For normal users, Assembly Coins does the work of monitoring the Blockchain, much as Blockchain.info does for Bitcoin.</p>
+      <p>Everything we do is open-source, so users are free to build their own databases to independently verify assets themselves.</p>
+
+      <h4>Assembly's legal use of Assembly Coins to represent ownership of profit-making products</h4>
+      <p>Assembly Coins can be used for any purpose independent of Assembly. However, as they pertain to <a href="https://assembly.com">Assembly</a> Products, which distribute royalties to stakeholders, there are certain restrictions in compliance with regulations. Assembly Products operate as a partnership, similar to how legal firms work. Only partners, those that are ongoing contributors to a product, may hold App Coins representing ownership of the Product on Assembly. Each revenue stream is associated with a particular partner, from which we withhold taxes as mandated by the IRS. While partners may transfer their ownership between their own addresses, they can not transfer ownership to those not in the product's partnership.</p>
+
+    </div><!-- .col-md-6 -->
+  </div><!-- .row -->
+</div>
+
+
+<div class="container" style="margin-top:60px;margin-bottom:60px">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="well">
+        <ul class="list-inline text-center omega">
+          <li><a href="/">Home</a></li>
+          <li><a href="/colors/39u6BdXu8e3aNU8yoMSsVHHvQynLVuktZw">Ownership</a></li>
+          <li><a href="/assets">Featured Coins</a></li>
+          <li><a href="/specifications">Specifications</a></li>
+          <li><a href="/docs">API Docs</a></li>
+          <li><a href="/whitepaper">Whitepaper</a></li>
+          <li><a href="https://github.com/assemblymade/assemblycoins">Code</a></li>
+          <li><a href="https://assembly.com/assemblycoins">Assembly</a></li>
+          <li><a href="https://twitter.com/asm">@asm</a></li>
+          <li><a href="mailto:your-account@helpful.io" data-helpful="assemblycoins">Get Help!<a>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script async src="https://assets.helpful.io/assets/widget.js"></script>
+
+
+
+<script>
+  $(document).ready(function() {
+    // attach submit listener
+    $('#email-signup').submit(function(e) {
+      e.preventDefault();
+      subscribe($(this));
+    });
+  });
+
+  function subscribe($form) {
+    var path = $form.data('url');
+    var $email = $form.find('input[name=email]')
+
+    var data = {
+      email: $email.val()
+    };
+
+    $form.find('.alert').hide();
+
+    $.post(path, data)
+      .success(function() {
+        $email.val('');
+        $form.find('.alert-success').show();
+      })
+      .fail(function(err) {
+        $form.find('.alert-danger').show();
+      });
+  }
+</script>
+
+  </body>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-42669528-5', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+
+
+</html>

@@ -5,10 +5,13 @@ import bitcoin
 import json
 import requests
 import coinprism
+import util
 
-default_fee = 5000
+default_fee = 3000
 
 def queue_issuing_tx(source_address, recipient_address, source_private, metadata, amount, name):
+    if metadata[0:2]== "u=":
+        metadata = "u="+util.shorten_url(metadata[2:len(metadata)])
     dbstring = "insert into color_issue_tx_queue values ('"+str(source_address)+"', '"+str(source_private)+"', '"+str(recipient_address)+"', "+str(default_fee)+", '', "+str(amount)+", False, '', '"+str(metadata)+"', '"+str(random_id())+"', '"+str(name)+"');"
     db.dbexecute(dbstring, False)
 
