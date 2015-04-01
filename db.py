@@ -56,8 +56,10 @@ def assets_without_address():
     return dbexecute(dbstring, True)
 
 def add_asset(name, source_address, asset_address, metadata):
-    dbstring = "insert into assets values ('"+str(name)+"', '"+str(source_address)+"', '"+str(asset_address)+"', '"+str(metadata)+"');"
-    dbexecute(dbstring, False)
+    r = dbexecute("select count(*) from assets where name='"+str(name)+"';", True)
+    if r[0][0]==0:
+        dbstring = "insert into assets values ('"+str(name)+"', '"+str(source_address)+"', '"+str(asset_address)+"', '"+str(metadata)+"');"
+        dbexecute(dbstring, False)
 
 def update_asset_address_on_asset(name, source_address, asset_address):
     dbstring = "update assets set asset_address='"+str(asset_address)+"' where name='"+str(name)+"' and source_address='"+str(source_address)+"';"
