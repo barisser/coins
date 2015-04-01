@@ -88,3 +88,16 @@ def color_issue_transactions_with_identifier(identifier):
     for x in a:
         b.append(x[7])
     return b
+
+def backlog():
+    btc = dbexecute("select count(*) from btc_tx_queue where success='false';", True)
+    btc = btc[0][0]
+    transfer = dbexecute("select count(*) from color_transfer_tx_queue where success='false';", True)
+    transfer = transfer[0][0]
+    issue = dbexecute("select count(*) from color_issue_tx_queue where success='false';", True)
+    issue = issue[0][0]
+    a = {}
+    a['btc_transactions_backlog'] = btc
+    a['color_transfer_backlog'] = transfer
+    a['color_issue_backlog'] = issue
+    return a
