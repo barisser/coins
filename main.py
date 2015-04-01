@@ -42,6 +42,24 @@ def givenewaddress_specifics():
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
 
+@app.route('/v2/identifiers/<identifier>')
+def get_txhash(identifier=None):
+    responsejson={}
+    if identifier==None:
+        k=0
+    else:
+        responsejson['btc_transfers'] = db.btc_transactions_with_identifier(identifier)
+        responsejson['color_transfers'] = db.color_transfer_transactions_with_identifier(identifier)
+        responsejson['color_issues'] = db.color_issue_transactions_with_identifier(identifier)
+    responsejson=json.dumps(responsejson)
+    response=make_response(responsejson, 200)
+    response.headers['Content-Type'] = 'application/json'
+    response.headers['Access-Control-Allow-Origin']= '*'
+    return response
+
+
+
+
 @app.route('/v2/colors/transfer', methods=['POST'])
 def transfer():
     jsoninput=json.loads(request.data)

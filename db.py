@@ -62,3 +62,27 @@ def add_asset(name, source_address, asset_address, metadata):
 def update_asset_address_on_asset(name, source_address, asset_address):
     dbstring = "update assets set asset_address='"+str(asset_address)+"' where name='"+str(name)+"' and source_address='"+str(source_address)+"';"
     dbexecute(dbstring, False)
+
+def btc_transactions_with_identifier(identifier):
+    dbstring = "select * from btc_tx_queue where randomid='"+str(identifier)+"';"
+    a = dbexecute(dbstring, True)
+    b = []
+    for x in a:
+        b.append(x[6])
+    return b
+
+def color_transfer_transactions_with_identifier(identifier):
+    dbstring = "select * from color_transfer_tx_queue where randomid='"+str(identifier)+"';"
+    a = dbexecute(dbstring, True)
+    b = []
+    for x in a:
+        b.append(x[7])
+    return b
+
+def color_issue_transactions_with_identifier(identifier):
+    dbstring = "select * from color_issue_tx_queue where randomid='"+str(identifier)+"';"
+    a = dbexecute(dbstring, True)
+    b = []
+    for x in a:
+        b.append(x[7])
+    return b
