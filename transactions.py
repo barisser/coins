@@ -7,7 +7,7 @@ import requests
 import coinprism
 import util
 
-default_fee = 3000
+default_fee = 1000
 
 def queue_issuing_tx(source_address, recipient_address, source_private, metadata, amount, name, identifier):
     if metadata[0:2]== "u=":
