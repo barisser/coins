@@ -136,4 +136,10 @@ def get_asset_id(address): #assumes only one asset type held
         return -1
 
 def convert_to_oa(address):
-    return get_balance(address)['asset_address']
+    r = get_balance(address)
+    if 'asset_address' in r:
+        return get_balance(address)['asset_address']
+    else:
+        print "COULD NOT GET ASSET ADDRESS"
+        print r
+        return ""
