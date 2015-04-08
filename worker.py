@@ -89,3 +89,20 @@ def scrape_asset_addresses():
             k=0
         else:
             db.update_asset_address_on_asset(name, address, asset_address)
+
+def transfer_txs_without_asset_address():
+    dbstring = "select * from color_transfer_tx_queue where success=false and asset_address='' or asset_address='-1';"
+    a = db.dbexecute(dbstring, True)
+    for tx in a:
+        sender = tx[0]
+        asset_address = tx[4]
+        randomid = tx[9]
+        if len(asset_address) < 10:
+            new_asset_address = coinprism.get_asset_id(sender)
+            if new_asset_address == -1:
+                k = 0
+            elif len(new_asset_address)< 10:
+                k = 0
+            else:
+                dbstring = "update color_transfer_tx_queue set asset_address='"+str(new_asset_address)+"' where randomid='"+str(randomid)+"'';"
+                db.dbexecute(dbstring, False)
