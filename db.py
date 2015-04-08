@@ -108,6 +108,6 @@ def add_to_last_transactions(txhash):
     dbexecute(dbstring, False)
 
 def get_last_transactions(n):
-    dbstring = "select * from last_transactions order by time desc limit "+str(n)+";"
+    dbstring = "select * from last_transactions order by timestamp desc limit "+str(n)+";"
     a = dbexecute(dbstring, True)
     return a
