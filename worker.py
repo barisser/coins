@@ -63,7 +63,7 @@ def transfer_colors():
         receiver_public = tx[2]
         fee = tx[3]
         asset_address = tx[4]
-        if asset_address=="":
+        if len(str(asset_address))<10:
             asset_address = coinprism.get_asset_id(sender_public)
         color_amount = tx[5]
         metadata = tx[8]
