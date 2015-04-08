@@ -143,3 +143,9 @@ def convert_to_oa(address):
         print "COULD NOT GET ASSET ADDRESS"
         print r
         return ""
+
+def get_address_holding_asset_address(asset_address):
+    a = requests.get("https://api.coinprism.com/v1/assets/"+str(asset_address)+"/owners", verify=False)
+    b = a.content
+    c = json.loads(b)
+    return c

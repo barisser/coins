@@ -67,8 +67,14 @@ def get_txhash(identifier=None):
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
 
-
-
+@app.route('/v2/coinholders/<asset_address>')
+def get_coinholders(asset_address=None):
+    responsejson={'coinholders'} = coinprism.get_address_holding_asset_address(asset_address)
+    responsejson=json.dumps(responsejson)
+    response=make_response(responsejson, 200)
+    response.headers['Content-Type'] = 'application/json'
+    response.headers['Access-Control-Allow-Origin']= '*'
+    return response
 
 @app.route('/v2/colors/transfer', methods=['POST'])
 def transfer():
