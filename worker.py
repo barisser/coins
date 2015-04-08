@@ -70,14 +70,17 @@ def transfer_colors():
         metadata = tx[8]
         randomid = tx[9]
 
-        txhash = coinprism.transfer_asset(sender_public, receiver_public, color_amount, metadata, fee, sender_private, asset_address)
-        try:
-            if len(txhash) > 10:
-                dbstring = "update color_transfer_tx_queue set txhash='"+str(txhash)+"', success=True where randomid='"+str(randomid)+"';"
-                db.dbexecute(dbstring, False)
-                db.add_to_last_transactions(txhash)
-        except:
-            print "No tx"
+        if len(asset_address) > 10:
+            txhash = coinprism.transfer_asset(sender_public, receiver_public, color_amount, metadata, fee, sender_private, asset_address)
+            try:
+                if len(txhash) > 10:
+                    dbstring = "update color_transfer_tx_queue set txhash='"+str(txhash)+"', success=True where randomid='"+str(randomid)+"';"
+                    db.dbexecute(dbstring, False)
+                    db.add_to_last_transactions(txhash)
+                except:
+                    print "No tx"
+        else:
+            print "DONT HAVE ASSET ADDRESS FOR RANDOMID="+str(randomid)
 
 def scrape_asset_addresses():
     addrs = db.assets_without_address()
@@ -95,6 +98,7 @@ def transfer_txs_without_asset_address():
     a = db.dbexecute(dbstring, True)
     for tx in a:
         sender = tx[0]
+        print tx
         asset_address = tx[4]
         randomid = tx[9]
         if len(asset_address) < 10:
