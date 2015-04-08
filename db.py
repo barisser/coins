@@ -52,7 +52,7 @@ def issued_without_asset_address():
     return a
 
 def assets_without_address():
-    dbstring = "select * from assets where asset_address='' or asset_address=-1;"
+    dbstring = "select * from assets where asset_address='' or asset_address='-1';"
     return dbexecute(dbstring, True)
 
 def add_asset(name, source_address, asset_address, metadata):
