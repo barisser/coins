@@ -77,8 +77,8 @@ def transfer_colors():
                     dbstring = "update color_transfer_tx_queue set txhash='"+str(txhash)+"', success=True where randomid='"+str(randomid)+"';"
                     db.dbexecute(dbstring, False)
                     db.add_to_last_transactions(txhash)
-                except:
-                    print "No tx"
+            except:
+                print "No tx"
         else:
             print "DONT HAVE ASSET ADDRESS FOR RANDOMID="+str(randomid)
 
