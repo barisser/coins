@@ -70,7 +70,7 @@ def transfer_colors():
         metadata = tx[8]
         randomid = tx[9]
 
-        if len(asset_address) > 10:
+        if len(str(asset_address)) > 10:
             txhash = coinprism.transfer_asset(sender_public, receiver_public, color_amount, metadata, fee, sender_private, asset_address)
             try:
                 if len(txhash) > 10:
