@@ -103,8 +103,8 @@ def backlog():
     return a
 
 def add_to_last_transactions(txhash):
-    time = int(time.time())
-    dbstring = "insert into last_transactions values ('"+str(txhash)+"', "+str(time)+");"
+    t = int(time.time())
+    dbstring = "insert into last_transactions values ('"+str(txhash)+"', "+str(t)+");"
     dbexecute(dbstring, False)
 
 def get_last_transactions(n):
