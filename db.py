@@ -101,3 +101,13 @@ def backlog():
     a['color_transfer_backlog'] = transfer
     a['color_issue_backlog'] = issue
     return a
+
+def add_to_last_transactions(txhash):
+    time = int(time.time())
+    dbstring = "insert into last_transactions values ('"+str(txhash)+"', "+str(time)+");"
+    dbexecute(dbstring, False)
+
+def get_last_transactions(n):
+    dbstring = "select * from last_transactions order by time desc limit "+str(n)+";"
+    a = dbexecute(dbstring, True)
+    return a

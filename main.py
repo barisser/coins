@@ -136,5 +136,17 @@ def get_asset_address(btc_address=None):
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
 
+@app.route('/last_txs')
+def last_txs():
+    n = 100
+    a = db.get_last_transactions(n)
+    responsejson = {}
+    responsejson['last_txs'] = a
+    responsejson=json.dumps(responsejson)
+    response=make_response(responsejson, 200)
+    response.headers['Content-Type'] = 'application/json'
+    response.headers['Access-Control-Allow-Origin']= '*'
+    return response
+
 if __name__ == '__main__':
     app.run()

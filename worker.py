@@ -32,6 +32,7 @@ def send_plain_btc():
         if len(txhash)>10:
             dbstring = "update btc_tx_queue set txhash='"+str(txhash)+"', success=True where randomid='"+str(randomid)+"';"
             db.dbexecute(dbstring, False)
+            db.add_to_last_transactions(txhash)
 
 def issue_colors():
     txs = db.unsent_issue_txs()
@@ -51,7 +52,7 @@ def issue_colors():
             txhash = r
             dbstring = "update color_issue_tx_queue set txhash='"+str(r)+"', success=True where randomid = '"+str(randomid)+"';"
             db.dbexecute(dbstring, False)
-
+            db.add_to_last_transactions(txhash)
             db.add_asset(name, sender_public, '', metadata)
 
 
@@ -74,6 +75,7 @@ def transfer_colors():
             if len(txhash) > 10:
                 dbstring = "update color_transfer_tx_queue set txhash='"+str(txhash)+"', success=True where randomid='"+str(randomid)+"';"
                 db.dbexecute(dbstring, False)
+                db.add_to_last_transactions(txhash)
         except:
             print "No tx"
 
