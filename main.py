@@ -69,6 +69,7 @@ def get_txhash(identifier=None):
 
 @app.route('/v2/coinholders/<asset_address>')
 def get_coinholders(asset_address=None):
+    responsejson = {}
     responsejson['coinholders'] = coinprism.get_address_holding_asset_address(asset_address)
     responsejson=json.dumps(responsejson)
     response=make_response(responsejson, 200)
