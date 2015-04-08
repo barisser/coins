@@ -12,7 +12,11 @@ app.config['PROPAGATE_EXCEPTIONS']=True
 
 @app.route('/', methods=['GET'])
 def home():
-  return app.send_static_file('main.html')
+    return app.send_static_file('main.html')
+
+@app.route('/quickstart', methods=['GET'])
+def quickstart():
+    return app.send_static_file('')
 
 @app.route('/backlog')
 def showbacklog():

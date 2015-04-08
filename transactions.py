@@ -12,6 +12,8 @@ default_fee = 1000
 def queue_issuing_tx(source_address, recipient_address, source_private, metadata, amount, name, identifier):
     if metadata[0:2]== "u=":
         metadata = "u="+util.shorten_url(metadata[2:len(metadata)])
+        if metadata[0:9] == "u=http://":
+            metadata = metadata[0:6]+"s"+metadata[6:len(metadata)]
     dbstring = "insert into color_issue_tx_queue values ('"+str(source_address)+"', '"+str(source_private)+"', '"+str(recipient_address)+"', "+str(default_fee)+", '', "+str(amount)+", False, '', '"+str(metadata)+"', '"+str(identifier)+"', '"+str(name)+"');"
     db.dbexecute(dbstring, False)
 
