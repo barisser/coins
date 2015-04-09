@@ -16,7 +16,7 @@ def home():
 
 @app.route('/quickstart', methods=['GET'])
 def quickstart():
-    return app.send_static_file('')
+    return app.send_static_file('/quickstart/index.html')
 
 @app.route('/backlog')
 def showbacklog():
