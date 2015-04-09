@@ -35,7 +35,7 @@ def showbacklog():
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
 
-@app.route('/v2/colors/issue', methods=['POST'])   #WORKS
+@app.route('/colors/issue', methods=['POST'])   #WORKS
 def givenewaddress_specifics():
     jsoninput=json.loads(request.data)
 
@@ -62,7 +62,7 @@ def givenewaddress_specifics():
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
 
-@app.route('/v2/identifiers/<identifier>')
+@app.route('/identifiers/<identifier>')
 def get_txhash(identifier=None):
     responsejson={}
     if identifier==None:
@@ -77,7 +77,7 @@ def get_txhash(identifier=None):
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
 
-@app.route('/v2/coinholders/<asset_address>')
+@app.route('/coinholders/<asset_address>')
 def get_coinholders(asset_address=None):
     responsejson = {}
     responsejson['coinholders'] = coinprism.get_address_holding_asset_address(asset_address)
@@ -87,7 +87,7 @@ def get_coinholders(asset_address=None):
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
 
-@app.route('/v2/colors/transfer', methods=['POST'])
+@app.route('/colors/transfer', methods=['POST'])
 def transfer():
     jsoninput=json.loads(request.data)
     sender_public = str(jsoninput['public_address'])
@@ -109,7 +109,7 @@ def transfer():
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
 
-@app.route('/v2/btc/transfer', methods = ['POST'])
+@app.route('/btc/transfer', methods = ['POST'])
 def send_btc():
     jsoninput = json.loads(request.data)
     sender_public = str(jsoninput['public_address'])
@@ -129,7 +129,7 @@ def send_btc():
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
 
-@app.route('/v2/addresses/')
+@app.route('/addresses/')
 def new_address():
     responsejson={}
     a = addresses.random_address_pair()
@@ -142,7 +142,22 @@ def new_address():
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
 
-@app.route('/v2/colors/asset_address/<btc_address>')
+@app.route('/addresses/brainwallet/<phrase>')
+def brainwallet(phrase=None):
+  public_address=addresses.generate_publicaddress(phrase)
+  public_key=addresses.generate_publickey(phrase)
+  private_key=addresses.generate_privatekey(phrase)
+  jsonresponse={}
+  jsonresponse['public_key']=public_key
+  jsonresponse['public_address']=public_address
+  jsonresponse['private_key']=private_key
+  jsonresponse=json.dumps(jsonresponse)
+  response=make_response(str(jsonresponse), 200)
+  response.headers['Content-Type'] = 'application/json'
+  response.headers['Access-Control-Allow-Origin']= '*'
+  return response
+
+@app.route('/colors/asset_address/<btc_address>')
 def get_asset_address(btc_address=None):
     a = coinprism.get_asset_id(btc_address)
     responsejson = {}
