@@ -55,9 +55,6 @@
           <a href="/whitepaper">Whitepaper</a>
         </li>
         <li>
-          <a href="https://github.com/assemblymade/assemblycoins">Code</a>
-        </li>
-        <li>
           <a href="https://assembly.com/assemblycoins">Assembly</a>
         </li>
 
@@ -238,7 +235,7 @@ $("form").submit(function(event){
         <span class="s2">&quot;private_key&quot;</span>:<span class="s2">&quot;YOUR PRIVATE KEY HERE&quot;</span>, <span class="se">\</span>
         <span class="s2">&quot;amount&quot;</span>:10, <span class="se">\</span>
         <span class="s2">&quot;recipient_address&quot;</span>:<span class="s2">&quot;16ucRhebuqcoDngLoZNwz2d6TjtNnLunKE&quot;</span>, <span class="se">\</span>
-        <span class="s2">&quot;asset_address&quot;</span>:<span class="s2">&quot;16ucRhebuqcoDngLoZNwz2d6TjtNnLunKE&quot;</span>, <span class="se">\</span>
+        <span class="s2">&quot;asset_address&quot;</span>:<span class="s2">&quot;AHhirRdaFys2s6gEwRayGtriu1ahvaqjXR&quot;</span>, <span class="se">\</span>
         <span class="s2">&quot;identifier&quot;</span>:<span class="s2">&quot;unique_identifying_string&quot;</span>, <span class="se">\</span>
 
   <span class="o">}</span><span class="sb">`</span></code></pre></div>
@@ -246,60 +243,47 @@ $("form").submit(function(event){
   <h4>Arguments</h4>
 
   <dl class="dl-horizontal">
-    <dt>from_public_address</dt>
+    <dt>public_address</dt>
     <dd>
       <code>string</code>
       The public address sending colored coins.  It must have enough colored coins and bitcoins for the transfer transactions to succeed.
     </dd>
 
-    <dt>from_private_key</dt>
+    <dt>private_key</dt>
     <dd>
       <code>string</code>
       The private key of the sending public address.
     </dd>
 
-    <dt>transfer_amount</dt>
+    <dt>amount</dt>
     <dd>
       <code>integer</code>
       The number of colored coins to transfer.  This is in units of the minimum increment for the color type.
     </dd>
 
-    <dt>issuing_address</dt>
+    <dt>asset_address</dt>
     <dd>
       <code>string</code>
-      The source address of the color being transferred.  This is the founder and controlling address of the color type and the only address that can issue further coins.  It identifies the desired color to send, in case of color mixing.
+      The asset address of the color being transferred.  This is a unique, non-forgeable identifier for each color.
     </dd>
 
-    <dt>fee_each</dt>
-    <dd>
-      <code>float</code>
-      The amount in Bitcoin transaction fees to spent per transaction.  Suggested 0.00005.
-    </dd>
-
-    <dt>to_public_address</dt>
+    <dt>recipient_address</dt>
     <dd>
       <code>string</code>
-      The destination for the transferred colored coins.
+      The public address of the recipient of the transferred colored coins.
     </dd>
 
-    <dt>callback_url</dt>
+    <dt>identifier</dt>
     <dd>
       <code>string</code>
-      OPTIONAL PARAMETER.  If specified, a JSON post will be sent after the transfer transaction is written and pushed to the Bitcoin network.
+      A unique identifier for the queueing of this transaction.  Query the server later to discover the state of the transaction.
   </dl>
 
     <h4>Example Response</h4>
 
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
-  <span class="s2">&quot;result&quot;</span><span class="o">:</span> <span class="s2">&quot;Queued&quot;</span>
+  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;Color Transaction Queued&quot;</span>
 <span class="p">}</span></code></pre></div>
-
-    <h4>CallBack Response</h4>
-
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
-  <span class="s2">&quot;transaction_hash&quot;</span><span class="o">:</span> <span class="s2">&quot;09cb295b51331eed9f9bc2b3215b1787d79f70bdc45766a7b32be1da1c84cec7&quot;</span>
-<span class="p">}</span></code></pre></div>
-
 
 <script async src="https://assets.helpful.io/assets/widget.js"></script>
 
