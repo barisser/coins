@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Assembly Coins</title>
+    <meta name="description" content="">
+		<!-- Redirect from 404 page to homepage -->
+
+    <link rel="canonical" href="https://coins.assembly.com">
+
+    <!-- Styles -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <!-- Javascript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="masthead">
+  <nav class="navbar masthead-navbar navbar-static-top omega" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#coins-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        <img class="img-circle" src="/images/logo.png" style="max-width:30px;margin-right:10px;margin-top:-5px">
+        <span>Assembly</span> Coins
+      </a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="coins-navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="">
+          <a href="/quickstart">Quickstart</a>
+        </li>
+        <li class="active">
+          <a href="/docs">API Docs</a>
+        </li>
+        <li class="">
+          <a href="/whitepaper">Whitepaper</a>
+        </li>
+        <li>
+          <a href="https://github.com/assemblymade/assemblycoins">Code</a>
+        </li>
+        <li>
+          <a href="https://assembly.com/assemblycoins">Assembly</a>
+        </li>
+
+        <form class="navbar-form navbar-left" role="search">
+           <div class="form-group">
+             <input type="text" id="searchbox" class="form-control input-lg" placeholder="Address or Color">
+          </div>
+          <button type="submit" class="btn btn-lg masthead-btn">Search</button>
+        </form>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$("form").submit(function(event){
+  event.preventDefault();
+  search();
+});
+
+</script>
+
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="page-header">
+  <h1>Documentation</h1>
+</div>
+
+<p>
+  Below you'll find the building blocks that enable you to build your own custom applications and use cases with the Assembly Coins protocol, which is an extension of the
+  <a href="https://github.com/OpenAssets/open-assets-protocol/blob/master/specification.mediawiki">Open Assets Protocol</a>.
+</p>
+
+<div class="row">
+  <div class="col-sm-9">
+
+    <h2 id="colors">Colors</h2>
+    <hr>
+
+    <h3>Prompt API Server for New Coin Issuing Address</h3>
+
+    <div class="endpoint">
+      <span class="label label-success">POST</span>
+      <span>/v2/colors/issue</span>
+    </div>
+
+    <h4>Example Request</h4>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl https://coins.assembly.com/v1/colors/prepare <span class="se">\</span>
+  -X POST <span class="se">\</span>
+  -H <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="se">\</span>
+  -d <span class="s1">&#39;{</span>
+<span class="s1">        &quot;issued_amount&quot;: 555,</span>
+<span class="s1">        &quot;description&quot;: &quot;Order over Chaos&quot;,</span>
+<span class="s1">        &quot;coin_name&quot;: &quot;mikoin&quot;,</span>
+<span class="s1">        &quot;email&quot;: &quot;Gottfried@Leibniz.com&quot;</span>
+<span class="s1">      }&#39;</span></code></pre></div>
+
+    <h4>Arguments</h4>
+
+    <dl class="dl-horizontal">
+      <dt>issued_amount</dt>
+      <dd>
+        <code>integer</code>
+        Starting number of coins to be issued, declared in the Blockchain
+      </dd>
+
+      <dt>description</dt>
+      <dd>
+        <code>string</code>
+        Description of the Coin Color, to be written permanently in the Blockchain
+      </dd>
+
+      <dt>coin_name</dt>
+      <dd>
+        <code>string</code>
+        Name of the Coin Color, declared in the Blockchain
+      </dd>
+
+      <dt>email</dt>
+      <dd>
+        <code>string</code>
+        For use with Assembly only.  Not written in the Blockchain.
+      </dd>
+
+    </dl>
+
+    <h4>Example Response</h4>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+  <span class="s2">&quot;issuing_private_key&quot;</span><span class="o">:</span> <span class="s2">&quot;5JczQYvFVAoGgGFJxEu6qQGUNCvKp8VmqMPtpnGfTFVmQxcvcBi&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;mikoin&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;minting_fee&quot;</span><span class="o">:</span> <span class="s2">&quot;0.00043606&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;issuing_public_address&quot;</span><span class="o">:</span> <span class="s2">&quot;1KDqfRmheS6jcq6XYDeiWfF3yako8AJKUa&quot;</span>
+<span class="p">}</span></code></pre></div>
+
+    <br>
+    <h3>Check Holders of particular Coin Type</h3>
+
+    <div class="endpoint">
+      <span class="label label-primary">GET</span>
+      /v1/colors/:color_address
+    </div>
+    OR
+    <div class="endpoint">
+      <span class="label label-primary">GET</span>
+      /v1/colors/:issuing_address
+    </div>
+
+    <h4>Example Request</h4>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl https://coins.assembly.com/v1/colors/32dCTMMrW7XPVrfbfJtguo6LN9sg8mvttq</code></pre></div>
+
+    <h4>Arguments</h4>
+
+    <dl class="dl-horizontal">
+      <dt>color_address</dt>
+      <dd>
+        <code>string</code>
+        The unique color address string identifying the color type
+      </dd>
+
+      <dt>issuing_address</dt>
+      <dd>
+        <code>string</code>
+        The Bitcoin public address that first issued the asset.  Use this if you don't know the color address.  You will get the same
+    result.
+      </dd>
+    </dl>
+
+    <h4>Example Response</h4>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+<span class="s2">&quot;color_address&quot;</span><span class="o">:</span> <span class="s2">&quot;32dCTMMrW7XPVrfbfJtguo6LN9sg8mvttq&quot;</span><span class="p">,</span>
+<span class="s2">&quot;owners&quot;</span><span class="o">:</span>
+  <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;quantity&quot;</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+      <span class="s2">&quot;public_address&quot;</span><span class="o">:</span> <span class="s2">&quot;1DzZ7DFJ4yrMzVw4ws8PdmmtqqfTnjprLB&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;quantity&quot;</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+      <span class="s2">&quot;public_address&quot;</span><span class="o">:</span> <span class="s2">&quot;1PaCGhg1JtD4C6LrRLozjSDe5T2Uco1cAJ&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span></code></pre></div>
+
+    <br>
+    <h3>Make New Coin Directly with Server Side Transaction Signing</h3>
+
+    <div class="endpoint">
+      <span class="label label-success">POST</span>
+      /v1/colors
+    </div>
+
+    <h4>Example Request</h4>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl https://coins.assembly.com <span class="se">\</span>
+-X POST <span class="se">\</span>
+-H <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="se">\</span>
+-d <span class="s1">&#39;{</span>
+<span class="s1">      &quot;public_address&quot;: &quot;1EUV2AXvJRtyDb9j4s7nsxbs9S1MKb3EnU&quot;,</span>
+<span class="s1">      &quot;private_key&quot;: &quot;5JMFFPgzjgKHkKnGvTRB1aaiBhRu9Tq6ZC28Gj5v9DK5PBzSwTD&quot;,</span>
+<span class="s1">      &quot;name&quot;: &quot;OneKoin&quot;,</span>
+<span class="s1">      &quot;initial_coins&quot;: 9,</span>
+<span class="s1">      &quot;description&quot;: &quot;One Coin to Rule Them All&quot;,</span>
+<span class="s1">      &quot;email&quot;: &quot;Gandalf@MiddleEarth.mid&quot;,</span>
+<span class="s1">      &quot;fee_each&quot;: 0.00005</span>
+<span class="s1">    }&#39;</span></code></pre></div>
+
+    <h4>Arguments</h4>
+    <dl class="dl-horizontal">
+      <dt>public_address</dt>
+      <dd>
+        <code>string</code>
+        The public Bitcoin address creating new coins.  This will be the source address for this color type.
+      </dd>
+
+      <dt>private_key</dt>
+      <dd>
+        <code>string</code>
+        The private key controlling the source address.
+      </dd>
+
+      <dt>name</dt>
+      <dd>
+        <code>string</code>
+        The name of the new color type, to be written on the Blockchain.
+      </dd>
+
+      <dt>initial_coins</dt>
+      <dd>
+        <code>integer</code>
+        The number of coins to issue.  More can be issued later.  To be written on the Blockchain.  Coins
+      are sent back to this public address, from which they can later be transferred.
+      </dd>
+
+      <dt>description</dt>
+      <dd>
+        <code>string</code>
+      The description of this coin color.  This is to be written on the Blockchain.  It is a permanent
+    declaration of intent.
+      </dd>
+
+      <dt>email</dt>
+      <dd>
+        <code>string</code>
+        The email of the coin creator.  Stored by Assembly only.  Not written on the Blockchain or shared with anyone.
+      </dd>
+
+      <dt>fee_each</dt>
+      <dd>
+        <code>float</code>
+        The Bitcoin transaction fee to pay per transaction.  Note that multiple transactions are necessary to create a new
+      coin, thus the total fee will be some multiple of this number.  We suggest 0.00005 BTC.
+
+    </dl>
+
+    <h4>Example Response</h4>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;OneKoin&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;minting_fee&quot;</span><span class="o">:</span> <span class="s2">&quot;0.0003&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;issuing_public_address&quot;</span><span class="o">:</span> <span class="s2">&quot;1EUV2AXvJRtyDb9j4s7nsxbs9S1MKb3EnU&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;issuing_private_key&quot;</span><span class="o">:</span> <span class="s2">&quot;5JMFFPgzjgKHkKnGvTRB1aaiBhRu9Tq6ZC28Gj5v9DK5PBzSwTD&quot;</span>
+<span class="p">}</span></code></pre></div>
+
+
+    <h2 id="addresses">Addresses</h2>
+    <hr>
+
+    <h3>Check Address Balances</h3>
+
+    <div class="endpoint">
+      <span class="label label-primary">GET</span>
+      /v1/addresses/:public_address
+    </div>
+
+    <h4>Example Request</h4>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl https://coins.assembly.com/v1/addresses/1565XBNc3HkFAZESsEBgyL4KQPLUQW8BTj</code></pre></div>
+
+    <h4>Arguments</h4>
+    <dl class="dl-horizontal">
+      <dt>public_address</dt>
+      <dd>
+        <code>string</code>
+        The public Bitcoin address whose colored assets balance you wish to check.
+    </dl>
+
+    <h4>Example Response</h4>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+  <span class="s2">&quot;assets&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;color_address&quot;</span><span class="o">:</span> <span class="s2">&quot;39u6BdXu8e3aNU8yoMSsVHHvQynLVuktZw&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;quantity&quot;</span><span class="o">:</span> <span class="mi">9999967</span><span class="p">,</span>
+      <span class="s2">&quot;issuing_address&quot;</span><span class="o">:</span> <span class="s2">&quot;1565XBNc3HkFAZESsEBgyL4KQPLUQW8BTj&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;color_name&quot;</span><span class="o">:</span> <span class="s2">&quot;Assembly Coins&quot;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;public_address&quot;</span><span class="o">:</span> <span class="s2">&quot;1565XBNc3HkFAZESsEBgyL4KQPLUQW8BTj&quot;</span>
+<span class="p">}</span></code></pre></div>
+
+    <br>
+    <h3>Generate Public/Private Address Pair</h3>
+
+    <div class="endpoint">
+      <span class="label label-primary">GET</span>
+      /v1/addresses
+    </div>
+
+    <h4>Example Request</h4>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl https://coins.assembly.com/v1/addresses</code></pre></div>
+
+    <h4>Example Response</h4>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+  <span class="s2">&quot;public_address&quot;</span><span class="o">:</span> <span class="s2">&quot;15EZotfUZjsT6RiYryTjwJ64WwW2MbRXRe&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;public_key&quot;</span><span class="o">:</span> <span class="s2">&quot;040FFF47977BE753935D6E237C07BCF8D01E3C14B5263A1F4FCE4ABAE2B2E22D31DF263B4D1023F1F6BE2534E6AEB0F3FC8A37B3BEA608250BD250DA4F11AEE9E4&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;private_key&quot;</span><span class="o">:</span> <span class="s2">&quot;5JMFFPgzjgKHkKnGvTRB1aaiBhRu9Tq6ZC28Gj5v9DK5PBzSwTD&quot;</span>
+<span class="p">}</span></code></pre></div>
+
+    <br>
+    <h3>Generate Public/Private Address Pair from Phrase</h3>
+
+    <div class="endpoint">
+      <span class="label label-primary">GET</span>
+      /v1/addresses/bainwallet/:your_phrase
+    </div>
+
+    <h4>Example Request</h4>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl https://coins.assembly.com/v1/addresses/brainwallet/password1</code></pre></div>
+
+    <h4>Arguments</h4>
+
+    <dl class="dl-horizontal">
+      <dt>your_phrase</dt>
+      <dd>
+        <code>string</code>
+        A passphrase that deterministically maps to a Bitcoin public/private keypair.
+    </dl>
+    <div class="alert alert-warning">
+      USE WITH CAUTION, only use very complex phrases!
+    </div>
+
+    <h4>Example Response</h4>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+<span class="s2">&quot;public_address&quot;</span><span class="o">:</span> <span class="s2">&quot;19VAb9zAhpWLaWfEuqw9HXup2zaNoNPPyE&quot;</span><span class="p">,</span>
+<span class="s2">&quot;public_key&quot;</span> <span class="o">:</span> <span class="s2">&quot;040FFF47977BE753935D6E237C07BCF8D01E3C14B5263A1F4FCE4ABAE2B2E22D31DF263B4D1023F1F6BE2534E6AEB0F3FC8A37B3BEA608250BD250DA4F11AEE9E4&quot;</span>
+<span class="s2">&quot;private_key&quot;</span><span class="o">:</span> <span class="s2">&quot;5HuAe6SqbZHxWJNHZ9YMxW7dFp97PdzMD2uTHChLd1nXJPS5dsR&quot;</span>
+<span class="p">}</span></code></pre></div>
+
+    <h2 id="transactions">Transactions</h2>
+    <hr>
+
+    <h3>Transfer Colored Coins with Server Side signing</h3>
+    <div class="endpoint">
+      <span class="label label-success">POST</span>
+      /v1/transactions/transfer
+    </div>
+
+    <h4>Example Request</h4>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl https://coins.assembly.com/v1/transactions/transfer <span class="se">\</span>
+  -X POST <span class="se">\</span>
+  -H <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="se">\</span>
+  -d <span class="sb">`</span><span class="o">{</span> <span class="se">\</span>
+        <span class="s2">&quot;from_public_address&quot;</span>:<span class="s2">&quot;16ucRhebuqcoDngLoZNwz2d6TjtNnLunKE&quot;</span>, <span class="se">\</span>
+        <span class="s2">&quot;from_private_key&quot;</span>:<span class="s2">&quot;YOUR PRIVATE KEY HERE&quot;</span>, <span class="se">\</span>
+        <span class="s2">&quot;transfer_amount&quot;</span>:10, <span class="se">\</span>
+        <span class="s2">&quot;issuing_address&quot;</span>:<span class="s2">&quot;16ucRhebuqcoDngLoZNwz2d6TjtNnLunKE&quot;</span>, <span class="se">\</span>
+        <span class="s2">&quot;fee_each&quot;</span>:0.00005, <span class="se">\</span>
+        <span class="s2">&quot;to_public_address&quot;</span>:<span class="s2">&quot;17pnsRJSq23xeYW8nZdgZzmofJXr2A5wMB&quot;</span>, <span class="se">\</span>
+        <span class="s2">&quot;callback_url&quot;</span>:<span class="s2">&quot;http://www.yourserver.com&quot;</span> <span class="se">\</span>
+  <span class="o">}</span><span class="sb">`</span></code></pre></div>
+
+  <h4>Arguments</h4>
+
+  <dl class="dl-horizontal">
+    <dt>from_public_address</dt>
+    <dd>
+      <code>string</code>
+      The public address sending colored coins.  It must have enough colored coins and bitcoins for the transfer transactions to succeed.
+    </dd>
+
+    <dt>from_private_key</dt>
+    <dd>
+      <code>string</code>
+      The private key of the sending public address.
+    </dd>
+
+    <dt>transfer_amount</dt>
+    <dd>
+      <code>integer</code>
+      The number of colored coins to transfer.  This is in units of the minimum increment for the color type.
+    </dd>
+
+    <dt>issuing_address</dt>
+    <dd>
+      <code>string</code>
+      The source address of the color being transferred.  This is the founder and controlling address of the color type and the only address that can issue further coins.  It identifies the desired color to send, in case of color mixing.
+    </dd>
+
+    <dt>fee_each</dt>
+    <dd>
+      <code>float</code>
+      The amount in Bitcoin transaction fees to spent per transaction.  Suggested 0.00005.
+    </dd>
+
+    <dt>to_public_address</dt>
+    <dd>
+      <code>string</code>
+      The destination for the transferred colored coins.
+    </dd>
+
+    <dt>callback_url</dt>
+    <dd>
+      <code>string</code>
+      OPTIONAL PARAMETER.  If specified, a JSON post will be sent after the transfer transaction is written and pushed to the Bitcoin network.
+  </dl>
+
+    <h4>Example Response</h4>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+  <span class="s2">&quot;result&quot;</span><span class="o">:</span> <span class="s2">&quot;Queued&quot;</span>
+<span class="p">}</span></code></pre></div>
+
+    <h4>CallBack Response</h4>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+  <span class="s2">&quot;transaction_hash&quot;</span><span class="o">:</span> <span class="s2">&quot;09cb295b51331eed9f9bc2b3215b1787d79f70bdc45766a7b32be1da1c84cec7&quot;</span>
+<span class="p">}</span></code></pre></div>
+
+    <br>
+    <h3>Push Raw Transaction to Bitcoin Network</h3>
+
+    <div class="endpoint">
+      <span class="label label-success">POST</span>
+      /v1/transactions
+    </div>
+
+    <h4>Example Request</h4>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl https://coins.assembly.com/v1/transactions <span class="se">\</span>
+ -X POST <span class="se">\</span>
+ -H <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="se">\</span>
+ -d <span class="s1">&#39;{</span>
+<span class="s1">      &quot;transaction_hex&quot;: &quot;0100000001344630cbff61fbc362f7e1ff2f11a344c29326e4ee96e787dc0d4e5cc02fd069000000004a493046022100ef89701f460e8660c80808a162bbf2d676f40a331a243592c36d6bd1f81d6bdf022100d29c072f1b18e59caba6e1f0b8cadeb373fd33a25feded746832ec179880c23901ffffffff0100f2052a010000001976a914dd40dedd8f7e37466624c4dacc6362d8e7be23dd88ac00000000&quot;</span>
+<span class="s1">    }&#39;</span></code></pre></div>
+
+    <h4>Arguments</h4>
+    <dl class="dl-horizontal">
+      <dt>transaction_hex</dt>
+      <dd>
+        <code>string</code>
+        The raw transaction, in hex form, to be pushed directly to the Bitcoin Network.
+      </dd>
+    </dl>
+
+    <h4>Example Response</h4>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+  <span class="s2">&quot;transaction_hash&quot;</span><span class="o">:</span><span class="s2">&quot;ac96267f7790d8d7459c0aae6160ab88458e03050d7f31d8b7310f32ebecb261&quot;</span>
+<span class="p">}</span></code></pre></div>
+
+    <br>
+    <h3>Parsed Open Assets Transactions in Block</h3>
+
+    <div class="endpoint">
+      <span class="label label-primary">GET</span>
+      /v1/transactions/parsed/:block_height
+    </div>
+
+    <h4>Example Request</h4>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl https://coins.assembly.com/v1/transactions/parsed/300712</code></pre></div>
+
+    <h4>Arguments</h4>
+
+    <dl class="dl-horizontal">
+      <dt>block_height</dt>
+      <dd>
+        <code>integer</code>
+        The height of the Bitcoin Block to inspect.  Parsed Colored Coin Metadata will be presented for that
+    Block.  Metadata is not checked for legitimacy, merely interpreted from OPRETURNS.
+    </dl>
+
+    <h4>Example Response</h4>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+  <span class="s2">&quot;parsed_transactions&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;parsed_colored_info&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;asset_count&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;asset_quantities&quot;</span><span class="o">:</span> <span class="p">[</span>
+          <span class="mi">2</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;issued&quot;</span><span class="o">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="s2">&quot;btc&quot;</span><span class="o">:</span> <span class="mi">600</span><span class="p">,</span>
+            <span class="s2">&quot;color_address&quot;</span><span class="o">:</span> <span class="s2">&quot;38PfLkHYC2gb98ZXdVtvDJQ1dk6Eh75Zcf&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;destination_address&quot;</span><span class="o">:</span> <span class="s2">&quot;13LW8Y8GQzZueF6LKSgtgqcUXoxEL7puyY&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;previous_inputs&quot;</span><span class="o">:</span> <span class="s2">&quot;source:1mpC4oLBmvMNcdK4jmSAAxMA62mSsfMvv&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;quantity&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">&quot;txhash_index&quot;</span><span class="o">:</span> <span class="s2">&quot;762c54aa55513b647e831ab91ac03ed3117525fedc5b5f45fb0f50bc9439518b:0&quot;</span>
+          <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;metadata&quot;</span><span class="o">:</span> <span class="s2">&quot;u=https://cpr.sm/NR64BLo62v&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;metadata_length&quot;</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
+        <span class="s2">&quot;transferred&quot;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;OA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;version&quot;</span><span class="o">:</span> <span class="s2">&quot;0100&quot;</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;transaction_hash_with_index&quot;</span><span class="o">:</span> <span class="s2">&quot;762c54aa55513b647e831ab91ac03ed3117525fedc5b5f45fb0f50bc9439518b:1&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;parsed_colored_info&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;asset_count&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;asset_quantities&quot;</span><span class="o">:</span> <span class="p">[</span>
+          <span class="mi">13337</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;issued&quot;</span><span class="o">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="s2">&quot;btc&quot;</span><span class="o">:</span> <span class="mi">600</span><span class="p">,</span>
+            <span class="s2">&quot;color_address&quot;</span><span class="o">:</span> <span class="s2">&quot;3JqEoSCcpaNW7Pm9cQVbQQgvz7nLnAmfTc&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;destination_address&quot;</span><span class="o">:</span> <span class="s2">&quot;16NZhXGySMbCgpZ3WEMqkXGaxmmNnX51W5&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;previous_inputs&quot;</span><span class="o">:</span> <span class="s2">&quot;source:1CBvyTJwqwv5Vb48QXNbFbczGX6b6s8UwC&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;quantity&quot;</span><span class="o">:</span> <span class="mi">13337</span><span class="p">,</span>
+            <span class="s2">&quot;txhash_index&quot;</span><span class="o">:</span> <span class="s2">&quot;0f0169b34fe25f3ae76342c1f3b865f0d920b823daf891693830057aa90bef32:0&quot;</span>
+          <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;metadata&quot;</span><span class="o">:</span> <span class="s2">&quot;u=https://cpr.sm/eIOxaAZ-he&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;metadata_length&quot;</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
+        <span class="s2">&quot;transferred&quot;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;OA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;version&quot;</span><span class="o">:</span> <span class="s2">&quot;0100&quot;</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;transaction_hash_with_index&quot;</span><span class="o">:</span> <span class="s2">&quot;0f0169b34fe25f3ae76342c1f3b865f0d920b823daf891693830057aa90bef32:1&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;parsed_colored_info&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;asset_count&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">&quot;asset_quantities&quot;</span><span class="o">:</span> <span class="p">[</span>
+          <span class="mi">500</span><span class="p">,</span>
+          <span class="mi">12837</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;issued&quot;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;metadata&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;metadata_length&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;transferred&quot;</span><span class="o">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="s2">&quot;btc&quot;</span><span class="o">:</span> <span class="mi">600</span><span class="p">,</span>
+            <span class="s2">&quot;destination_address&quot;</span><span class="o">:</span> <span class="s2">&quot;1Myvq1HeQUY9kawMy2EzGMm9KU1nnF8hkB&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;out_n&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;previous_inputs&quot;</span><span class="o">:</span> <span class="p">[</span>
+              <span class="s2">&quot;0f0169b34fe25f3ae76342c1f3b865f0d920b823daf891693830057aa90bef32:0&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;e83fd8e7ce7e8a38dddbbf5010624b4ba1962cdbb7566aaf6ffa9c8d2f22bdbd:1&quot;</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;quantity&quot;</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span>
+            <span class="s2">&quot;txhash_index&quot;</span><span class="o">:</span> <span class="s2">&quot;e82956b4e2649027ca797685fb4a8c3c0140a8cad9a3b7b35cdd01279017bda0:1&quot;</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+            <span class="s2">&quot;btc&quot;</span><span class="o">:</span> <span class="mi">600</span><span class="p">,</span>
+            <span class="s2">&quot;destination_address&quot;</span><span class="o">:</span> <span class="s2">&quot;16NZhXGySMbCgpZ3WEMqkXGaxmmNnX51W5&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;out_n&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">&quot;previous_inputs&quot;</span><span class="o">:</span> <span class="p">[</span>
+              <span class="s2">&quot;0f0169b34fe25f3ae76342c1f3b865f0d920b823daf891693830057aa90bef32:0&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;e83fd8e7ce7e8a38dddbbf5010624b4ba1962cdbb7566aaf6ffa9c8d2f22bdbd:1&quot;</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;quantity&quot;</span><span class="o">:</span> <span class="mi">12837</span><span class="p">,</span>
+            <span class="s2">&quot;txhash_index&quot;</span><span class="o">:</span> <span class="s2">&quot;e82956b4e2649027ca797685fb4a8c3c0140a8cad9a3b7b35cdd01279017bda0:2&quot;</span>
+          <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;OA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;version&quot;</span><span class="o">:</span> <span class="s2">&quot;0100&quot;</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;transaction_hash_with_index&quot;</span><span class="o">:</span> <span class="s2">&quot;e82956b4e2649027ca797685fb4a8c3c0140a8cad9a3b7b35cdd01279017bda0:0&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span></code></pre></div>
+
+    <br>
+    <h3>Get Raw Transaction Information</h3>
+
+    <div class="endpoint">
+      <span class="label label-primary">GET</span>
+      /v1/transactions/raw/:transaction_hash
+    </div>
+
+    <h4>Example Request</h4>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl https://coins.assembly/com/v1/transactions/raw/87e7d0c02b5c518e1b5d8668c6db423fbe0d5ad461e9e7f2086d52275d98d72d</code></pre></div>
+
+    <h4>Arguments</h4>
+    <dl class="dl-horizontal">
+      <dt>transaction_hash</dt>
+      <dd>
+        <code>string</code>
+        The Bitcoin transaction hash to lookup.  Bitcoin transaction information is returned.
+    </dl>
+
+    <h4>Example Response</h4>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+  <span class="s2">&quot;raw_transaction&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;blockhash&quot;</span><span class="o">:</span> <span class="s2">&quot;00000000000000000e9481fa2399ddd32d8d29543e92fde915319a234a3758c4&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;blocktime&quot;</span><span class="o">:</span> <span class="mi">1409789874</span><span class="p">,</span>
+    <span class="s2">&quot;confirmations&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">&quot;hex&quot;</span><span class="o">:</span> <span class="s2">&quot;0100000001bcb28d9a417e617c644f6cdc74de88d5278d352af84ace31102062ad98e90978010000008c493046022100a7beee5f45a6e6c4bd4f3b91c1c3f7e95f91ea1b99cfc3ecc78d2eafb0b926d1022100848f01e8159df6ed0cf264d2b9cdd3ab4c75fe85d25b48853530e2cd6a3e2aaf0141044ab0b335f0cd9278991663560c578f1fc586a6b0a985873669dd2986c266d7812410c713bf8f45b458b8a7ba176b265f055cc34d2814c57c54bc2184737765d1ffffffff0200a3e111000000001976a9142f5befb369ed9cf1c04934387a7a55bffdf8ed8688ac58bce02d000000001976a914c985e97940bd881f6fcfcf4f0295476d66fb326488ac00000000&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;locktime&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;time&quot;</span><span class="o">:</span> <span class="mi">1409789874</span><span class="p">,</span>
+    <span class="s2">&quot;txid&quot;</span><span class="o">:</span> <span class="s2">&quot;87e7d0c02b5c518e1b5d8668c6db423fbe0d5ad461e9e7f2086d52275d98d72d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;version&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;vin&quot;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;scriptSig&quot;</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">&quot;asm&quot;</span><span class="o">:</span> <span class="s2">&quot;3046022100a7beee5f45a6e6c4bd4f3b91c1c3f7e95f91ea1b99cfc3ecc78d2eafb0b926d1022100848f01e8159df6ed0cf264d2b9cdd3ab4c75fe85d25b48853530e2cd6a3e2aaf01 044ab0b335f0cd9278991663560c578f1fc586a6b0a985873669dd2986c266d7812410c713bf8f45b458b8a7ba176b265f055cc34d2814c57c54bc2184737765d1&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;hex&quot;</span><span class="o">:</span> <span class="s2">&quot;493046022100a7beee5f45a6e6c4bd4f3b91c1c3f7e95f91ea1b99cfc3ecc78d2eafb0b926d1022100848f01e8159df6ed0cf264d2b9cdd3ab4c75fe85d25b48853530e2cd6a3e2aaf0141044ab0b335f0cd9278991663560c578f1fc586a6b0a985873669dd2986c266d7812410c713bf8f45b458b8a7ba176b265f055cc34d2814c57c54bc2184737765d1&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;sequence&quot;</span><span class="o">:</span> <span class="mi">4294967295</span><span class="p">,</span>
+        <span class="s2">&quot;txid&quot;</span><span class="o">:</span> <span class="s2">&quot;7809e998ad62201031ce4af82a358d27d588de74dc6c4f647c617e419a8db2bc&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;vout&quot;</span><span class="o">:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;vout&quot;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;n&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;scriptPubKey&quot;</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">&quot;addresses&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;15KQts8aQ84uiskjEjHFe3ZPTRnXDDppAT&quot;</span>
+          <span class="p">],</span>
+          <span class="s2">&quot;asm&quot;</span><span class="o">:</span> <span class="s2">&quot;OP_DUP OP_HASH160 2f5befb369ed9cf1c04934387a7a55bffdf8ed86 OP_EQUALVERIFY OP_CHECKSIG&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;hex&quot;</span><span class="o">:</span> <span class="s2">&quot;76a9142f5befb369ed9cf1c04934387a7a55bffdf8ed8688ac&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;reqSigs&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;pubkeyhash&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mf">3.0</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;n&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;scriptPubKey&quot;</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">&quot;addresses&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;1KNZEvnE6A6Y9ev1kpNfxbM5kj1YSe7roa&quot;</span>
+          <span class="p">],</span>
+          <span class="s2">&quot;asm&quot;</span><span class="o">:</span> <span class="s2">&quot;OP_DUP OP_HASH160 c985e97940bd881f6fcfcf4f0295476d66fb3264 OP_EQUALVERIFY OP_CHECKSIG&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;hex&quot;</span><span class="o">:</span> <span class="s2">&quot;76a914c985e97940bd881f6fcfcf4f0295476d66fb326488ac&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;reqSigs&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;pubkeyhash&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mf">7.69703</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+
+    <br>
+    <h3>Search for Verified Colored Coin Data on Transaction</h3>
+
+    <div class="endpoint">
+      <span class="label label-primary">GET</span>
+      /v1/transactions/:transaction_hash
+    </div>
+
+    <h4>Example Request</h4>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl https://coins.assembly.com/v1/transactions/201057b5915e692cbdb435b9fc390553b029dfea607fd285e01e633e7015bc6a</code></pre></div>
+
+    <h4>Arguments</h4>
+    <dl class="dl-horizontal">
+      <dt>transaction_hash</dt>
+      <dd>
+        <code>string</code>
+        The Bitcoin transaction hash to lookup.  Verified Colored Coin Data is returned.
+      </dd>
+    </dl>
+
+    <h4>Example Response</h4>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+<span class="s2">&quot;outputs&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+              <span class="s2">&quot;color_address&quot;</span><span class="o">:</span> <span class="s2">&quot;3Mtjm3kYAk4CcsrbL5rhVKXWgT4tbyQH7E&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;spent_at_txhash&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;blockmade&quot;</span><span class="o">:</span> <span class="mi">300871</span><span class="p">,</span>
+              <span class="s2">&quot;previous_input&quot;</span><span class="o">:</span> <span class="s2">&quot;source:1R7L7HnTgU6Ei1h7AwYc93bCyJXevM637&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;destination_address&quot;</span><span class="o">:</span> <span class="s2">&quot;1Q4sP6gak7PE7YQduYYTUdNuhPrDoqoQQQ&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;txhash&quot;</span><span class="o">:</span> <span class="s2">&quot;201057b5915e692cbdb435b9fc390553b029dfea607fd285e01e633e7015bc6a&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;blockspent&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+              <span class="s2">&quot;spent&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+              <span class="s2">&quot;color_amount&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+              <span class="s2">&quot;btc&quot;</span><span class="o">:</span> <span class="mi">600</span><span class="p">,</span>
+              <span class="s2">&quot;txhash_index&quot;</span><span class="o">:</span> <span class="s2">&quot;201057b5915e692cbdb435b9fc390553b029dfea607fd285e01e633e7015bc6a:0&quot;</span>
+            <span class="p">}</span>
+          <span class="p">]</span>
+<span class="p">}</span></code></pre></div>
+
+
+    <h2 id="messages">Messages</h2>
+    <hr>
+
+    <h3>Write Multipart Statement on the Blockchain</h3>
+
+    <div class="endpoint">
+      <span class="label label-success">POST</span>
+      /v1/messages
+    </div>
+
+    <h4>Example Request</h4>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl https://coins.assembly.com/v1/messages <span class="se">\</span>
+  -X POST <span class="se">\</span>
+  -H <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="se">\</span>
+  -d <span class="s1">&#39;{</span>
+<span class="s1">        &quot;public_address&quot;: &quot;12GWLZTL6vNcKLzewbRpGWbRw7MWdmxdWG&quot;,</span>
+<span class="s1">        &quot;fee_each&quot;: 0.00005,</span>
+<span class="s1">        &quot;private_key&quot;: &quot;5KDN3QoQMkQ8UWRCn732766z12NTNpdWEwjSna7yC6pLpmaUHTA&quot;,</span>
+<span class="s1">        &quot;message&quot;: &quot;Before the creation of Ea, Sauron was one of the countless lesser Ainur spirits created by Eru Iluvatar, known as the Maia. At this time he was known as Mairon the Admirable, and partook in the Ainulindale, or Music of the Ainur. &quot;</span>
+<span class="s1">     }&#39;</span></code></pre></div>
+
+    <h4>Arguments</h4>
+    <dl class="dl-horizontal">
+      <dt>public_address</dt>
+      <dd>
+        <code>string</code>
+        Public Bitcoin address sending message.
+      </dd>
+
+      <dt>fee_each</dt>
+      <dd>
+        <code>float</code>
+        Bitcoin transaction fee to spend per transaction.  Depending on the length of the message, there may be multiple transactions.
+      </dd>
+
+      <dt>private_key</dt>
+      <dd>
+        <code>string</code>
+        The private key of the Bitcoin address writing the message.
+      </dd>
+
+      <dt>message</dt>
+      <dd>
+        <code>string</code>
+      The message itself to be written in the Blockchain.  This message is divide into 40 byte blocks, written as separate OPRETURN transaction on the Blockchain.  Numbers preceding each block allows for proper concatenation later.
+      </dd>
+
+    </dl>
+
+    <h4>Example Response</h4>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+  <span class="s2">&quot;transaction_hash&quot;</span><span class="o">:</span><span class="s2">&quot;f04281ee925d927dcef21e0236023cebad522a4f08545a85cb625338f1f77896&quot;</span>
+<span class="p">}</span></code></pre></div>
+
+    <br>
+    <h3>Read stitched-together multi-part <code>OP_RETURN</code> statements issued by an address</h3>
+
+    <div class="endpoint">
+      <span class="label label-primary">GET</span>
+      /v1/messages/:public_address
+    </div>
+
+    <h4>Example Request</h4>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl http://coins.assembly.com/v1/messages/1N8onLuitcQR9V3HB9QSARyFV6hwxA99Sx</code></pre></div>
+
+    <h4>Arguments</h4>
+    <dl class="dl-horizontal">
+      <dt>public_address</dt>
+      <dd>
+        <code>string</code>
+        The public Bitcoin address whose multi-part message are to be read.  The stitched, concatenated version is presented.
+      </dd>
+    </dl>
+
+    <h4>Example Response</h4>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+  <span class="s2">&quot;statements&quot;</span><span class="o">:</span> <span class="s2">&quot;{\&quot;name\&quot;: \&quot;pillars\&quot;, \&quot;desc\&quot;: \&quot;one small step\&quot;, \&quot;total\&quot;: 52352}&quot;</span>
+<span class="p">}</span></code></pre></div>
+
+
+
+<br>
+<h3>Write Plain Message or HASH onto Blockchain</h3>
+
+<div class="endpoint">
+  <span class="label label-primary">POST</span>
+  /v1/messages/web/
+</div>
+
+<h4>Example Request</h4>
+
+WRITE A HASH OF TEXT
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl https://coins.assembly.com/v1/messages/web <span class="se">\</span>
+  -X POST <span class="se">\</span>
+  -H <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="se">\</span>
+  -d <span class="s1">&#39;{</span>
+<span class="s1">        &quot;public_address&quot;: &quot;1Q7iCWykXRh4GvSjMQJqESsdZn3pHS3JQf&quot;,</span>
+<span class="s1">        &quot;fee_each&quot;: 0.00005,</span>
+<span class="s1">        &quot;private_key&quot;: &quot;5KiFzeJ6mM1e6ju5hC11WReSd9ADZnZgPYYzBGB3WCM5uY6uXyD&quot;,</span>
+<span class="s1">        &quot;hash_message&quot;: &quot;Before the creation of Ea, Sauron was one of the countless lesser Ainur spirits created by Eru Iluvatar, known as the Maia. At this time he was known as Mairon the Admirable, and partook in the Ainulindale, or Music of the Ainur. &quot;</span>
+<span class="s1">     }&#39;</span></code></pre></div>
+
+<h4>Arguments</h4>
+<dl class="dl-horizontal">
+  <dt>public_address</dt>
+  <dd>
+    <code>string</code>
+    The public Bitcoin address sending the message.  Bitcoin is not sent to another address.
+  </dd>
+  <dt>fee_each</dt>
+  <dd>
+    <code>float</code>
+    The transaction fee
+  </dd>
+  <dt>private_key</dt>
+  <dd>
+    <code>string</code>
+    The private key of the sending Bitcoin address.
+  </dd>
+  <dt>USE</dt><dd></dd>
+  <dt>hash_message</dt>
+  <dd>
+    <code>string</code>
+    The message to be hashed.  Only the hash will be placed on the Blockchain.
+  </dd>
+  <dt>OR</dt><dd></dd>
+  <dt>plain_message</dt>
+  <dd>
+    <code>string</code>
+    The message to be written directly on the Blockchain.  This must be less than 40 bytes.  For a longer message use /v1/messages.
+  </dd>
+</dl>
+
+<h4>Example Response</h4>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span><span class="s2">&quot;transaction_hash&quot;</span><span class="o">:</span> <span class="s2">&quot;903a59bd03bed95485e6473e68fa52912ecbd1167242bc1785c61993a13eb134&quot;</span><span class="p">}</span></code></pre></div>
+
+
+
+
+  </div>
+
+  <div class="col-sm-3">
+    <ul class="nav nav-pills nav-stacked text-right">
+      <li><a href="#colors">Colors</a></li>
+      <li><a href="#addresses">Addresses</a></li>
+      <li><a href="#transactions">Transactions</a></li>
+      <li><a href="#messages">Messages</a></li>
+    </ul>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container" style="margin-top:60px;margin-bottom:60px">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="well">
+        <ul class="list-inline text-center omega">
+          <li><a href="/">Home</a></li>
+          <li><a href="/colors/39u6BdXu8e3aNU8yoMSsVHHvQynLVuktZw">Ownership</a></li>
+          <li><a href="/assets">Featured Coins</a></li>
+          <li><a href="/specifications">Specifications</a></li>
+          <li><a href="/docs">API Docs</a></li>
+          <li><a href="/whitepaper">Whitepaper</a></li>
+          <li><a href="https://github.com/assemblymade/assemblycoins">Code</a></li>
+          <li><a href="https://assembly.com/assemblycoins">Assembly</a></li>
+          <li><a href="https://twitter.com/asm">@asm</a></li>
+          <li><a href="mailto:your-account@helpful.io" data-helpful="assemblycoins">Get Help!<a>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script async src="https://assets.helpful.io/assets/widget.js"></script>
+
+
+  </body>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-42669528-5', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+
+
+</html>

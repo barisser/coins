@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Assembly Coins</title>
+    <meta name="description" content="">
+
+    <link rel="canonical" href="https://coins.assembly.com">
+
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+    <!-- Application -->
+    <link rel="stylesheet" href="/css/main.css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="masthead">
+  <nav class="navbar masthead-navbar navbar-static-top omega" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#coins-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        <span>Assembly</span> Coins
+      </a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="coins-navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="">
+          <a href="/quickstart">Quickstart</a>
+        </li>
+        <li class="">
+          <a href="/docs">API Docs</a>
+        </li>
+        <li class="active">
+          <a href="/whitepaper">Whitepaper</a>
+        </li>
+        <li>
+          <a href="https://github.com/assemblymade/assemblycoins">Code</a>
+        </li>
+        <li>
+          <a href="https://assembly.com/assemblycoins">Assembly</a>
+        </li>
+
+        <form class="navbar-form navbar-left" role="search" action="javascript:search()">
+           <div class="form-group">
+             <input type="text" id="searchbox" class="form-control input-lg" placeholder="BTC Address or Color">
+          </div>
+          <button type="submit" class="btn btn-lg masthead-btn">Search</button>
+        </form>
+
+        <!-- <li>
+          <a href="https://twitter.com/asm">@asm</a>
+        </li> -->
+      </ul>
+    </div><!-- .navbar-collapse -->
+  </div><!-- .container -->
+</nav><!-- .navbar -->
+
+<script>
+
+function search(){
+
+  var search=document.getElementById("searchbox");
+  var searchvalue=search.value;
+  var first=searchvalue.substring(0,1);
+  var url="https://coins.assembly.com";
+
+  if(first=="1"){
+    url="https://coins.assembly.com/addresses/"+searchvalue;
+  }
+  else if(first=="3"){
+    url="https://coins.assembly.com/colors/"+searchvalue;
+  }
+  window.location=url;
+
+}
+
+</script>
+
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <style>
+  h2 {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #DDD;
+    margin-bottom: 24px;
+  }
+</style>
+
+<h1>Assembly Coins Whitepaper</h1>
+<div class="clearfix">
+  <p class="text-muted pull-right">July 29, 2014</p>
+  <p class="pull-left">By Andrew Barisser<a href="https://twitter.com/abarisser">(@abarisser)</a> at <a href="https://assembly.com">Assembly</a>.</p>
+</div>
+
+<h2>Table of Contents</h2>
+
+<ul>
+  <li>
+    <a href="#introduction">Assembly and Bitcoin 2.0</a>
+  </li>
+  <li>
+    <a href="#colored-coins-and-assembly-coins">Assembly Coins are Colored Coins</a>
+  </li>
+  <li>
+    <a href="#coins-on-assembly-products-and-partners">Coins on Assembly: Products and Partners</a>
+  </li>
+  <li>
+    <a href="#the-assembly-coins-api">The Assembly Coins API</a>
+  </li>
+  <li>
+    <a href="#our-vision-of-the-future">Our Vision of the Future</a>
+  </li>
+  <li>
+    <a href="#specifications">Specifications</a>
+  </li>
+  <li>
+    <a href="#glossary">Glossary</a>
+  </li>
+</ul>
+
+<h2 id="introduction">Assembly and Bitcoin 2.0</h2>
+
+<h3>The Natural Progression of the Bitcoin Blockchain</h3>
+<p>
+  Written on the Bitcoin Blockchain, Assembly Coins are digital ownership tokens with all the advantages of Bitcoin and none of the currency risk.  We aim to give users the best tools, extending to cryptographic guarantees of control, such that ownership is no longer a matter of trust, but mathematically self-evident.
+</p>
+
+
+<p>
+  Assembly is a platform for building products collaboratively online and sharing profits proportionate to work done. As partners accomplish specific tasks, called bounties, they are awarded ownership stakes in the corresponding product, and hence, claims to portions of future profits. This ownership has so far been represented by Assembly App Coins held by our database. We built Assembly Coins to give partners more control and transparency around their ownership. By putting these App Coins on the Blockchain using the Assembly Coins API and protocol, partners need not trust any central database. The entire record of ownership becomes open and cryptographically secure.
+</p>
+
+<p>
+  The full potential of Satoshi’s Blockchain is as yet unfulfilled. Assembly Coins is a Bitcoin 2.0 technology designed to expand the reach of Satoshi’s central innovation. We are decentralizing the ownership of entire companies, built anywhere, owned by people from anywhere.
+</p>
+
+<h3>This is not another Altcoin</h3>
+
+<p>
+  Assembly is not making another Altcoin. Assembly Coins are metacoins written on top of the Bitcoin blockchain, not a separate blockchain. This means the data recording App Coin ownership is much more secure and enduring than a newly invented, seldom used, parallel blockchain. The Bitcoin network itself is the most mature option with the most stakeholders, stability, and existing architecture. Your ownership isn’t getting written in a meme-coin.
+</p>
+
+<p>
+  We are not selling anything. Instead we have built an open sourced API to enhance the Assembly platform’s value for our members. There is no premining and no presale of Assembly Coins. There is no internal currency with a separate Bitcoin exchange rate. There is no intermediary between you and Assembly Coins. Because our sole incentive is to maximize the experience of our members, we approached the design of ownership crypto-representation so as to produce the most sensible tool and not necessarily the most profitable one. This stands in stark contrast to many other ‘Bitcoin 2.0’ technologies out there, designed from the bottom up to raise money before real work gets done. Our products already making income, so Assembly Coins themselves immediately have value based on real-world revenue streams.
+</p>
+
+<p>
+  Our tools are completely open-source with no barriers to entry. If you like it, fork it and make it better. We’re making this service because we needed it to exist.
+</p>
+
+<h2 id="colored-coins-and-assembly-coins">Assembly Coins are Colored Coins</h2>
+Assembly Coins are an implementation of the colored coin concept. Assembly Coins are Bitcoins that have been specially watermarked in such a way that they retain that watermark through all subsequent transactions. They come in quantities which may not coincide with their value in Satoshi. They come watermarked with their ‘issuing address’, which states the ‘identity’ or ‘type’ of each Assembly Coin. As a result, any type of item may be represented, subject only to the original issuer. Assembly Coins are a powerful concept for several reasons. Because they exist on the Bitcoin Blockchain, they enjoy all the benefits therein.</p>
+
+<ul>
+  <li>Because Assembly Coins represent ownership transparently according to an open protocol, new cryptographic and analytical tools can be designed to augment users' ownership.</li>
+  <li>Assembly Coins can be easily transferred from one address to another, quickly and at low cost. Ownership has never has never been so easy to move around.</li>
+  <li>Assembly Coins provide proof-of-ownership of whatever they represent. This opens doors for other uses not appropriate to Bitcoin, such as voting.</li>
+  <li>Assembly Coins are trustless once minted. While the issuer of a particular colored coin must be trusted, the transmission and ownership of Assembly Coins are not susceptible to any third parties.</li>
+  <li>Assembly Coins will be secure; it will be cryptographically impossible to forge a transaction from the private key holder.</li>
+</ul>
+
+<p>
+  While Assembly Coins was built to be used by anyone, at Assembly it will be used to represent products built on our platform. Ownership in Assembly Products via Assembly Coins gives users cryptographically provable ownership rights.
+</p>
+
+<h3>Assembly Coins extends the Open Assets protocol</h3>
+
+<p>
+  Assembly Coins was built on top of the Open Assets protocol. We have implemented, however, compatible, extensions of that protocol to improve and open up the protocol. A user should be able to manipulate all Open Assets-compliant colored coins with Assembly tools. Conversely, it should not be obligatory to use Assembly’s API to manage Assembly Coins. We hold no unique information; it’s all on the Blockchain.
+</p>
+
+<p>
+  Addresses may issue statements recorded in the Bitcoin Blockchain, declaring metadata related to the coin they have issued. This way, higher level data need not be stored on any proprietary database. These messages may be longer than 40 bytes, may be retrieved at will, are trustless, and can be updated. The creation step of a new coin has been bundled with multipart declarations defining the name and terms at inception. We expose many more API calls governing Colored Coin behavior for the convenience of developers. For example, dissecting the meaning of metadata in Open Assets-compliant transactions was hitherto a closed process, now available on our API. Colored Outputs misspent as Bitcoin will not destroy colored coins but will render them immobile at that address. We are completely open source from top to bottom. You can recreate our API yourself.
+</p>
+
+<h3>Example Assembly Coins Lifecycle</h3>
+The following example illustrates how Assembly uses the Assembly Coins API to create product specific App Coins that represent ownership.
+<ul>
+  <li>
+    <p>
+      Bart creates a new Product called “Doogle”. With the Assembly Coins API, Bart issues an encrypted statement declaring the issuance of Assembly Coins which represent ownership in “Doogle”. The initial issuing declaration states:
+    </p>
+    <ul>
+      <li>
+        <p>
+          The name of the product
+        </p>
+      </li>
+      <li>
+        <p>
+          The metadata that will identify “Doogle” Assembly Coins in future Bitcoin transactions.
+        </p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>
+      A special issuing address is generated via the Assembly Coins API. As the issuer, this address controls the supply of this particular variety of colored coins. In the future we will explore supporting multisig address in which the controlling keys are distributed to product stakeholders.
+    </p>
+    <ul>
+      <li>
+        <p>
+          The issuing address’s private keys are used to encrypt Bart’s issuance declaration, proving the founders’ control over that address. His declaration includes metadata corresponding to the product.
+        </p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>
+      As the first founder, Bart receives an initial 6000 App Coins of “Doogle”, as is done presently. These are sent to his personal address, not the issuing address, as a specially marked Bitcoin transaction. His ownership of “Doogle Coins” is now an uncontested fact for all to see. The issuance of App Coins, as well as checking an address’s balance, are available as Assembly Coins API calls in addition to being open source.
+    </p>
+  </li>
+  <li>
+    <p>
+      Mildred comes along and helps build Doogle. Bart and other Core Team members award her a bounty on Assembly for that task, simultaneously signing a multisig transaction issuing Mildred new Doogle Coins. Within a few minutes, Mildred has cryptographic control over her Doogle ownership.
+    </p>
+  </li>
+  <li>
+    <p>
+      Soon Doogle is a smashing commercial success, receiving US dollar-denominated profits through Assembly. Since Doogle’s ownership is plainly visible on the Blockchain, Assembly distributes royalties to all the Assembly Coins owners. Those desiring distributions in dollars receive them through regular channels. Others receive bitcoins directly to their coinholding public addresses. There is a direct and immediate link between ownership of the Assembly Coins on the blockchain and payment by Assembly.
+    </p>
+  </li>
+  <li>
+    <p>
+      Mildred sends her ownership colored coins to another Bitcoin address that she controls. That’s fine. Bitcoins are awarded to whichever address holds the relevant coins.
+    </p>
+  </li>
+</ul>
+
+<p>Perhaps down the road Bart and Mildred will have the following capabilities:</p>
+
+<ul>
+  <li>
+    <p>Managing the Doogle product involves lots of small but important business decisions. Cryptographic voting
+from the private keys of coinholders, wherever they might be, is a trustless and provable way to
+demonstrate consensus.</p>
+  </li>
+  <li>
+    <p>Doogle is really taking off, but in order to hire the services of advertisers, marketers, and other
+3rd party contractors, a collective pot of money is required. To manage money in a trustless way,
+Mildred, Bart, and other coinholders in Doogle create a multisignature Bitcoin address. To spend this money, some fraction of the keyholders must sign off on each outgoing transaction. This voting fraction does not have to be a majority,it could be 2 out of 1000, or 4 out of 5, whatever they agree to.
+Now the product can control money safely.</p>
+  </li>
+  <li>
+    <p>Doogle may raise funds, to be owned cryptographically by the product and not any individual member, by issuing new ownership coins. Issuance would require consent via cryptographic voting of existing owners.</p>
+  </li>
+  <li>
+    <p>The entire financial history related to the product, from ownership distributions, to royalty payments, and to revenue generated via Bitcoin, can be provably audited within seconds.</p>
+  </li>
+</ul>
+
+
+<h2 id="coins-on-assembly-products-and-partners">Coins on Assembly: Products and Partners</h2>
+
+<p>While anyone can make use of the Assembly Coins protocol for virtually any purpose, freely transfering coins from one individual to another, the use of Assembly Coins internally for Assembly Products has some restrictions.</p>
+
+<p>Each Assembly product is a partnership in which members have contributed work and thereby receive
+   ownership. That ownership will be represented by Assembly Coins as product specific App Coins. Profit
+   distributions are royalties from individual products. Coinholders may transfer their assets between addresses
+   hey control.  Tax information must be registered, for withholding purposes, for each US residents and foreign members before royalties are paid. Each Assembly Coins revenue stream can thus be associated with a member’s tax information for IRS compliance. Payments in Bitcoin will be reported as with USD dollars. Because Assembly Coins represent partnership stakes, Coinholders must exercise partners’ responsibilities, such as participating in products at least once a year.</p>
+
+
+<h2 id="the-assembly-coins-api">The Assembly Coins API</h2>
+
+<h3>Description</h3>
+
+<p>
+  The <a href="/docs">Assembly Coins API</a> will exist as an independent service that provides general tools for navigating the world of colored coins. It is designed to appeal to the broadest set of developers interested in leveraging the Open Assets protocol. As such, many of the queries developers use on the Bitcoin Blockchain have colored analogs here. It has tools for interacting with addresses, blocks, transactions, colored coin metadata, encrypted messaging, and multisignature features. Most of these API calls are not currently available in an easy-to-use API online.
+</p>
+
+<p>
+  Assembly will be a consumer of the Assembly Coins API as it implements digital ownership for its products. The same Assembly Coins could be manipulated with a separate service, a forked version, or via handcrafted Bitcoin transactions. It should never be obligatory to use the Assembly Coins API to handle Assembly Coins.
+</p>
+
+<h3>Behavior of the Protocol</h3>
+
+<p>Assembly Coins adopts the <a href="https://github.com/OpenAssets/open-assets-protocol/blob/master/specification.mediawiki">Open Assets protocol</a>.
+ This is a convenient and open-ended way to watermark assets as a layer on top of Bitcoin.</p>
+
+<p>
+  Assembly Coins are originally born with a user creating a Bitcoin public address, the issuing address. When a user writes a Bitcoin transaction with the correct metadata from that issuing address, a hash can be generated from the Bitcoin script in the first input of that transaction. This hash is a unique identifier for the Assembly Coin. Assembly Coins may have human-readable names such as ‘RedCoins’, but they always also have a unique hash which we call the ‘color address’. To prevent confusion, our API responds to a Assembly Coins’s issuing address. Other metadata about the Assembly Coins may then be queried with it.
+</p>
+
+<p>Please see the original protocol for more useful information.</p>
+
+<p>There are certain important advantages to this protocol.</p>
+
+<ul>
+  <li>
+    All necessary information is inscribed in the Bitcoin Blockchain.
+  </li>
+  <li>
+    It harnesses all the advantages of the Bitcoin Blockchain, security, protection from double-spending, ease of use, transparency, pseudonymity.
+  </li>
+  <li>
+    Tools that already exist for Bitcoin can be easily applied to Colored Coins.
+  </li>
+  <li>
+    Color coins are not tied to actual Bitcoin amounts, meaning coin transfers and creation are very cheap.
+  </li>
+  <li>
+    There is basically no limit to the number of coin colors that can be issued.
+  </li>
+  <li>
+    It is possible to move multiple kinds of Colored Coins to with multiple inputs and outputs in one transaction.
+  </li>
+  <li>
+    There is no metacoin between Colored Coins and Bitcoin. That means no pre-mining, presale, or other cheap gimmicks.
+  </li>
+  <li>
+    This is not another Altcoin!  It exists on the Bitcoin Blockchain, which means it’s going to endure.
+  </li>
+</ul>
+
+<p>Other services may not be directly available with Open Assets, but could be developed on top of it. Decentralized Exchanges are already being built (Iridis).</p>
+
+
+<h2 id="our-vision-of-the-future">Our Vision of the Future</h2>
+
+<p>
+  We believe that blockchain-based technologies, for their robustness, their trustlessness, their mathematical
+  perfection, are the wave of the future. Assembly Coins is a new tool in the pursuit of a higher order of
+   governance and ownership. But it is only the beginning. Assembly Coins may be only the bottom layer of an
+    entire ecosystem manipulating ownership as financial instruments at a higher level. These are some of the
+     things we hope to see built above Assembly Coins, if and when such future applications are legal.
+</p>
+
+<ul>
+  <li>The management of accounts with layers of trust using multi-signature approaches on the Blockchain. Let disparate individuals who have never met pool money without having to trust each other.</li>
+  <!-- <li>Business governance through shareholder voting using cryptographic signatures</li> -->
+  <li>Auditing and tax tools that operate in milliseconds. The entire financial history of an individual or business can be pseudonymous, provable, and trivial to process</li>
+  <!-- <li>Dividend Micropayments</li> -->
+  <li>Frictionless Exchange of ownership.</li>
+  <li>Secondary Markets for the efficient, trustless, instantaneous, low-overhead exchange of ownership tokens</li>
+  <li>Algorithmic tax and regulatory compliance. Send the IRS 39.6% of your salary automatically. Algorithms won’t just calculate your taxes. They will literally pay your taxes.</li>
+</ul>
+
+<p>Individuals around the world typically can’t collaborate in small groups with money at stake. Maybe they’ve never met each other. Maybe their legal systems are tool different: the legal and regulatory compliance costs across countries too great. How can they trust money to an anonymous person on the web? How does an owner know he will really get paid? Legal and financial authorities have traditionally ensured these matters for us. But the cost in time and money has been enormous. There is massive friction in the legal world and in the enforcement of property rights. By making enforcement algorithmic and cryptographic, individuals’ rights will become infinitely more secure.</p>
+
+<p>Our vision of the future is one in which businesses are transparently managed, fluidly created, disbursements are easy, paperwork is automated. The friction that ordinarily interferes with the fruition of a great idea should be reduced as much as possible. Your ownership will be cryptographic, which means undisputed by the awesome power of math. Decisions too, and money handling, the day-to-day of business, while easy to use on the front end, are underlied by strong cryptographic guarantees. If anyone wants to peak under the hood, audit a company, poll the stakeholders, go over the entire financial history, it should be as trivial as clicking a button.</p>
+
+<h2 id="specifications">Specifications</h2>
+  <ul>
+    <li>For the base protocol, see <a href='https://github.com/OpenAssets/open-assets-protocol/blob/master/specification.mediawiki'>Open Assets</a></li>
+    <li>
+      For specific data on our API calls, see our <a href="https://coins.assembly.com/docs">API Docs</a>
+    </li>
+  </ul>
+  <h5>Assembly Coins vis-a-vis the Coinprism implementation</h5>
+  Coinprism and Assembly Coins should produce mutually compatible transactions, ie, they write to the Blockchain in the same way.  However in parsing metadata and the Blockchain, there are slight differences.
+  <ul>
+    <li><h5>Color Data</h5>
+      Whereas Coinprism puts Colored Coin metdata on its server, Assembly Coins writes multi-part declaration messages
+      directly onto the Blockchain via OPRETURN transactions.  These multipart messages are prefixed by a number, indicating their
+      order in the overall message.  When stitched together, they are of the form: <br><br>{"name": "The color's name", "desc": "A description here of arbitrary length", "total_issued": 100}
+      <br><br>This is the current schema for encoding metadata, but it is subject to change.  We basically want users to be able to declare whatever they want.  More
+      importantly, we want users to always be able to deduce metadata about a coin color from the Blockchain only.
+    </li><br>
+
+  </ul>
+<h3>Areas for Improvement</h3>
+<p>We have lots of ideas about how to improve the API.  There still remains much to do.  For more information, check out
+  the <a href="https://assembly.com/assemblycoins">Assembly Coins Product</a> page on <a href="https://assembly.com">Assembly.com</a> for specific ways to help out!</p>
+
+<h2 id="glossary">Glossary</h2>
+
+<dl class="dl-horizontal">
+  <dt>Open Assets</dt>
+  <dd>The Colored Coin protocol Assembly Coins uses</dd>
+
+  <dt>Issuing Address</dt>
+  <dd>The address controlling the issuance of a Colored Coin. Bitcoins sent from this address with the correct metadata become colored</dd>
+
+  <dt>Color Address</dt>
+  <dd>A unique identifier for each coin color. More technically, this is the RIPEMD-160 hash of the SHA-256 hash of the output script of the first input of the first transaction issuing the colored coin</dd>
+
+  <dt>Assembly Coins</dt>
+  <dd>Ownership in an Assembly Product as represented on the Blockchain</dd>
+
+  <dt>Metadata</dt>
+  <dd>additional information watermarking bitcoins into colored coins.</dd>
+</dl>
+
+    </div>
+  </div>
+</div>
+
+<div class="container" style="margin-top:60px;margin-bottom:60px">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="well">
+        <ul class="list-inline text-center omega">
+          <li><a href="/">Home</a></li>
+          <li><a href="/docs">API Documentation</a></li>
+          <li><a href="/whitepaper">Whitepaper</a></li>
+          <li><a href="https://github.com/assemblymade/assemblycoins">Code</a></li>
+          <li><a href="https://assembly.com/assemblycoins">Assembly</a></li>
+          <li><a href="https://twitter.com/asm">@asm</a></li>
+          <li><a href="mailto:your-account@helpful.io" data-helpful="assemblycoins">Get Help!<a>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script async src="https://assets.helpful.io/assets/widget.js"></script>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  </body>
+</html>

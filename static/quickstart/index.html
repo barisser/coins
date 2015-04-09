@@ -7,7 +7,7 @@
     <title>Assembly Coins</title>
     <meta name="description" content="">
 		<!-- Redirect from 404 page to homepage -->
-    
+
     <link rel="canonical" href="https://coins.assembly.com">
 
     <!-- Styles -->
@@ -168,18 +168,16 @@ function search(){
 
 <h2 id="issue-a-new-coin">1. Issue a new App Coin</h2>
 
-<p>
-  To start, you'll want to declare some information about your App Coin for posterity. All App Coin metadata will be encoded on the Bitcoin Blockchain, with the exception of your email address. Your <code>email</code> is used to notify you when the App Coin has been created on the Blockchain and is ready for transfer.
-</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>curl https://coins.assembly.com/v1/colors/prepare <span class="se">\</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>curl https://coins.assembly.com/v2/colors/issue <span class="se">\</span>
   -X POST <span class="se">\</span>
   -H <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="se">\</span>
   -d <span class="s1">&#39;{</span>
-<span class="s1">    &quot;issued_amount&quot;: 10000000,</span>
-<span class="s1">    &quot;description&quot;: &quot;Karefully Krafted Koin for Kats&quot;,</span>
-<span class="s1">    &quot;coin_name&quot;: &quot;KatKoins&quot;,</span>
-<span class="s1">    &quot;email&quot;: &quot;kris@example.com&quot;</span>
+<span class="s1">    &quot;coins&quot;: 10000000,</span>
+<span class="s1">    &quot;name&quot;: &quot;Karefully Krafted Koin for Kats&quot;,</span>
+<span class="s1">    &quot;identifier&quot;: &quot;KatKoins&quot;,</span>
+<span class="s1">    &quot;metadata&quot;: &quot;kris@example.com&quot;</span>
+<span class="s1">    &quot;public_address&quot;: &quot;kris@example.com&quot;</span>
+<span class="s1">    &quot;private_key&quot;: &quot;kris@example.com&quot;</span>
 <span class="s1">      }&#39;</span></code></pre></div>
 
 <p>

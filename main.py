@@ -16,7 +16,15 @@ def home():
 
 @app.route('/quickstart', methods=['GET'])
 def quickstart():
-    return app.send_static_file('/quickstart/index.html')
+    return app.send_static_file('quickstart/index.html')
+
+@app.route('/docs', methods=['GET'])
+def api_docs():
+    return app.send_static_file('docs/index.html')
+
+@app.route('/whitepaper', methods=['GET'])
+def whitepaper():
+    return app.send_static_file('whitepaper/index.html')
 
 @app.route('/backlog')
 def showbacklog():
@@ -45,10 +53,8 @@ def givenewaddress_specifics():
     tosend = transactions.default_fee * 0.00000001
 
     responsejson={}
-    responsejson['name']=coin_name
-    responsejson['minting_fee']=tosend
-    responsejson['issuing_public_address']=public_address
-    responsejson['issuing_private_key']=private_key
+    responsejson['message'] = "Issuing transaction queued.  Issuing address will send coins to itself.  Transfer from there."
+    responsejson['required_btc'] = tosend + transactions.dust*0.00000001
 
     responsejson=json.dumps(responsejson)
     response=make_response(responsejson, 200)
