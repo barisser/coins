@@ -153,5 +153,5 @@ def get_address_holding_asset_address(asset_address):
 def check_btc_balance(public_address):
     url = "https://api.chain.com/v2/bitcoin/addresses/"+str(public_address)+"?api-key-id="+str(os.environ['CHAIN_API_KEY'])
     a = requests.get(url)
-    b = json.loads(a)
+    b = json.loads(a.content)
     return b['total']['balance']
