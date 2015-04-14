@@ -127,9 +127,3 @@ def process_btc_maintenances():
 
             #queue a new tx
             transactions.queue_btc_tx(sender_public, sender_private, recipient_public, amount, identifier)
-
-
-
-
-
-        sender_public varchar(300), sender_private varchar(300), receiver_public varchar(300), fee bigint, amount bigint, continue bool, randomid varchar(300));"
