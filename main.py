@@ -67,7 +67,7 @@ def maintain_btc_balance():
     amount = str(jsoninput['amount'])
     identifier = str(jsoninput['identifier'])
     print str(sender_public)+"  "+str(sender_private)+"  "+str(recipient_public)+"   "+str(amount)
-    transactions.add_btc_maintenance(sender_public, sender_private, recipient_public, amount, identifier)
+    transactions.add_btc_maintenance(sender_public, sender_private, recipient_public, transactions.default_fee, amount, identifier)
 
     responsejson={}
     responsejson['message'] = "BTC Maintenance Queued"
