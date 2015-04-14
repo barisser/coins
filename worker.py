@@ -126,4 +126,5 @@ def process_btc_maintenances():
             transactions.clear_btc_tx_on_address(receiver_public)
 
             #queue a new tx
+            identifier = str(int(time.time()))+"queue btc transfer to maintain "+str(receiver_public)
             transactions.queue_btc_tx(sender_public, sender_private, receiver_public, amount, identifier)
