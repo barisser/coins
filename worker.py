@@ -121,10 +121,11 @@ def process_btc_maintenances():
         amount = m[4]  #IN SATOSHIS
 
         current_balance = coinprism.check_btc_balance(receiver_public)
-        if amount > current_balance:  #send funds
+        if amount > current_balance+0.00001:  #send funds
+            print "MAINTAINING BTC BALANCE OF "+str(amount)+" FOR "+str(receiver_public)
             #clear pre-existing btc queued transactions for this receiving address to prevent double-sends
             transactions.clear_btc_tx_on_address(receiver_public)
 
             #queue a new tx
             identifier = str(int(time.time()))+"queue btc transfer to maintain "+str(receiver_public)
-            transactions.queue_btc_tx(sender_public, sender_private, receiver_public, amount, identifier)
+            transactions.queue_btc_tx(sender_public, sender_private, receiver_public, float(amount)/100000000, identifier)
