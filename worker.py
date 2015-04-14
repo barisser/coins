@@ -123,7 +123,7 @@ def process_btc_maintenances():
         current_balance = coinprism.check_btc_balance(receiver_public)
         if amount > current_balance:  #send funds
             #clear pre-existing btc queued transactions for this receiving address to prevent double-sends
-            transactions.clear_btc_tx_on_address(recipient_public)
+            transactions.clear_btc_tx_on_address(receiver_public)
 
             #queue a new tx
-            transactions.queue_btc_tx(sender_public, sender_private, recipient_public, amount, identifier)
+            transactions.queue_btc_tx(sender_public, sender_private, receiver_public, amount, identifier)
