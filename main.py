@@ -58,6 +58,43 @@ def givenewaddress_specifics():
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
 
+@app.route('/btc/maintain', methods=['POST'])
+def maintain_btc_balance():
+    jsoninput = json.loads(request.data)
+    sender_public = str(jsoninput['public_address'])
+    sender_private = str(jsoninput['private_key'])
+    recipient_public = str(jsoninput['recipient_address'])
+    amount = str(jsoninput['amount'])
+    identifier = str(jsoninput['identifier'])
+    print str(sender_public)+"  "+str(sender_private)+"  "+str(recipient_public)+"   "+str(amount)
+    transactions.add_btc_maintenance(sender_public, sender_private, recipient_public, amount, identifier)
+
+    responsejson={}
+    responsejson['message'] = "BTC Maintenance Queued"
+    responsejson=json.dumps(responsejson)
+    response=make_response(responsejson, 200)
+    response.headers['Content-Type'] = 'application/json'
+    response.headers['Access-Control-Allow-Origin']= '*'
+    return response
+
+@app.route('/btc/maintain/kill', methods=['POST'])
+def kill_maintain_balance():
+    jsoninput = json.loads(request.data)
+    sender_public = str(jsoninput['public_address'])
+    sender_private = str(jsoninput['private_key'])
+    recipient_public = str(jsoninput['recipient_address'])
+
+    transactions.kill_btc_maintenance(recipient_public, sender_public, sender_private):
+
+    responsejson={}
+    responsejson['message'] = "BTC Maintenance Cancelled"
+    responsejson=json.dumps(responsejson)
+    response=make_response(responsejson, 200)
+    response.headers['Content-Type'] = 'application/json'
+    response.headers['Access-Control-Allow-Origin']= '*'
+    return response
+
+
 @app.route('/identifiers/<identifier>')
 def get_txhash(identifier=None):
     responsejson={}
