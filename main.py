@@ -84,7 +84,7 @@ def kill_maintain_balance():
     sender_private = str(jsoninput['private_key'])
     recipient_public = str(jsoninput['recipient_address'])
 
-    transactions.kill_btc_maintenance(recipient_public, sender_public, sender_private):
+    transactions.kill_btc_maintenance(recipient_public, sender_public, sender_private)
 
     responsejson={}
     responsejson['message'] = "BTC Maintenance Cancelled"
