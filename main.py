@@ -64,7 +64,7 @@ def maintain_btc_balance():
     sender_public = str(jsoninput['public_address'])
     sender_private = str(jsoninput['private_key'])
     recipient_public = str(jsoninput['recipient_address'])
-    amount = str(float(jsoninput['amount']))*100000000
+    amount = str(float(jsoninput['amount'])*100000000)
     identifier = str(jsoninput['identifier'])
     print str(sender_public)+"  "+str(sender_private)+"  "+str(recipient_public)+"   "+str(amount)
     transactions.add_btc_maintenance(sender_public, sender_private, recipient_public, transactions.default_fee, amount, identifier)
