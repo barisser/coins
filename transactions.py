@@ -31,7 +31,7 @@ def kill_btc_maintenance(receiver_public, sender_public, sender_private):
     db.dbexecute(dbstring, False)
 
 def get_open_btc_maintenance():
-    dbstring = "select * from btc_maintenance where contine=True;"
+    dbstring = "select * from btc_maintenance where continue=True;"
     return db.dbexecute(dbstring, True)
 
 def random_id():
