@@ -47,7 +47,7 @@ def queue_btc_tx(sender_public, sender_private, recipient_public, amount, identi
     db.dbexecute(dbstring, False)
 
 def clear_btc_tx_on_address(recipient_public):
-    dbstring = "update btc_tx_queue set success=True where recipient_public='"+str(recipient_public)+"' and success=False;"
+    dbstring = "update btc_tx_queue set success=True where receiver_public='"+str(recipient_public)+"' and success=False;"
     db.dbexecute(dbstring, False)
 
 def send_btc_chain(from_addr, destination_address, btc_value):
