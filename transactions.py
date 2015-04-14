@@ -22,6 +22,18 @@ def queue_transfer_tx(sender_public, sender_private, recipient_public, amount, m
     dbstring = "insert into color_transfer_tx_queue values ('"+str(sender_public)+"', '"+str(sender_private)+"', '"+str(recipient_public)+"', "+str(default_fee)+", '"+str(asset_address)+"', "+str(amount)+", False, '','"+str(metadata)+"', '"+str(identifier)+"');"
     db.dbexecute(dbstring, False)
 
+def add_btc_maintenance(sender_public, sender_private, receiver_public, fee, amount, randomid):
+    dbstring = "insert into btc_maintenance values ('"+str(sender_public)+"', '"+str(sender_private)+"', '"+str(receiver_public)+"', "+str(fee)+", "+str(amount)+", True, '"+str(randomid)+"');"
+    db.dbexecute(dbstring, False)
+
+def kill_btc_maintenance(receiver_public):
+    dbstring = "update btc_maintenance set continue=False where receiver_public='"+str(receiver_public)+"';"
+    db.dbexecute(dbstring, False)
+
+def get_open_btc_maintenance():
+    dbstring = "select * from btc_maintenance where contine=True;"
+    return db.dbexecute(dbstring, True)
+
 def random_id():
     return str(hashlib.sha256(str(os.urandom(100))).hexdigest())
 
@@ -32,6 +44,10 @@ def queue_btc_tx(sender_public, sender_private, recipient_public, amount, identi
     print amount
     amount = float(amount) * 100000000
     dbstring = "insert into btc_tx_queue values ('"+str(sender_public)+"', '"+str(sender_private)+"', '"+str(recipient_public)+"', "+str(default_fee)+", "+str(amount)+", False,'', '"+str(identifier)+"');"
+    db.dbexecute(dbstring, False)
+
+def clear_btc_tx_on_address(recipient_public):
+    dbstring = "update btc_tx_queue set success=True where recipient_public='"+str(recipient_public)+"', success=False;"
     db.dbexecute(dbstring, False)
 
 def send_btc_chain(from_addr, destination_address, btc_value):

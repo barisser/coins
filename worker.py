@@ -110,3 +110,26 @@ def transfer_txs_without_asset_address():
             else:
                 dbstring = "update color_transfer_tx_queue set asset_address='"+str(new_asset_address)+"' where randomid='"+str(randomid)+"'';"
                 db.dbexecute(dbstring, False)
+
+def process_btc_maintenances():
+    open_maintenances = transactions.get_open_btc_maintenance()
+    for m in open_maintenances:
+        sender_public = m[0]
+        sender_private = m[1]
+        receiver_public = m[2]
+        fee = m[3]
+        amount = m[4]  #IN SATOSHIS
+
+        current_balance = coinprism.check_btc_balance(receiver_public)
+        if amount > current_balance:  #send funds
+            #clear pre-existing btc queued transactions for this receiving address to prevent double-sends
+            transactions.clear_btc_tx_on_address(recipient_public)
+
+            #queue a new tx
+            transactions.queue_btc_tx(sender_public, sender_private, recipient_public, amount, identifier)
+
+
+
+
+
+        sender_public varchar(300), sender_private varchar(300), receiver_public varchar(300), fee bigint, amount bigint, continue bool, randomid varchar(300));"
