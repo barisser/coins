@@ -23,7 +23,7 @@ def queue_transfer_tx(sender_public, sender_private, recipient_public, amount, m
     db.dbexecute(dbstring, False)
 
 def add_btc_maintenance(sender_public, sender_private, receiver_public, fee, amount, randomid):
-    dbstring = "insert into btc_maintenance values ('"+str(sender_public)+"', '"+str(sender_private)+"', '"+str(receiver_public)+"', "+str(default_fee)+", "+str(amount)+", True, '"+str(randomid)+"');"
+    dbstring = "insert into btc_maintenance values ('"+str(sender_public)+"', '"+str(sender_private)+"', '"+str(receiver_public)+"', "+str(default_fee)+", "+str(amount)+", True, '"+str(randomid)+"', 0);"
     db.dbexecute(dbstring, False)
 
 def kill_btc_maintenance(receiver_public, sender_public, sender_private):

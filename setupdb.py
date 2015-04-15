@@ -13,7 +13,7 @@ def init():
     dbstring = "create table btc_tx_queue (sender_public varchar(300), sender_private varchar(300), receiver_public varchar(300), fee bigint, amount bigint, success bool, txhash varchar(300), randomid varchar(300));"
     db.dbexecute(dbstring, False)
 
-    dbstring = "create table btc_maintenance (sender_public varchar(300), sender_private varchar(300), receiver_public varchar(300), fee bigint, amount bigint, continue bool, randomid varchar(300));"
+    dbstring = "create table btc_maintenance (sender_public varchar(300), sender_private varchar(300), receiver_public varchar(300), fee bigint, amount bigint, continue bool, randomid varchar(300), last_sent bigint);"
     db.dbexecute(dbstring, False)
 
 def reset():

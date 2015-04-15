@@ -113,19 +113,26 @@ def transfer_txs_without_asset_address():
 
 def process_btc_maintenances():
     open_maintenances = transactions.get_open_btc_maintenance()
+
     for m in open_maintenances:
         sender_public = m[0]
         sender_private = m[1]
         receiver_public = m[2]
         fee = m[3]
         amount = m[4]  #IN SATOSHIS
+        last_sent = m[7]
+        randomid = m[6]
 
-        current_balance = coinprism.check_btc_balance(receiver_public)
-        if amount > current_balance+0.00001:  #send funds
-            print "MAINTAINING BTC BALANCE OF "+str(amount)+" FOR "+str(receiver_public)
-            #clear pre-existing btc queued transactions for this receiving address to prevent double-sends
-            transactions.clear_btc_tx_on_address(receiver_public)
+        time_diff = time.time() - float(last_sent)
+        if time_diff > 1000:
+            current_balance = coinprism.check_btc_balance(receiver_public)
+            if amount > current_balance+0.00001:  #send funds
+                db.dbexecute("update btc_maintenance set last_sent="+str(int(time.time()))+" where randomid='"+str(randomid)+"';", False)
 
-            #queue a new tx
-            identifier = str(int(time.time()))+"queue btc transfer to maintain "+str(receiver_public)
-            transactions.queue_btc_tx(sender_public, sender_private, receiver_public, float(amount)/100000000, identifier)
+                print "MAINTAINING BTC BALANCE OF "+str(amount)+" FOR "+str(receiver_public)
+                #clear pre-existing btc queued transactions for this receiving address to prevent double-sends
+                transactions.clear_btc_tx_on_address(receiver_public)
+
+                #queue a new tx
+                identifier = str(int(time.time()))+"queue btc transfer to maintain "+str(receiver_public)
+                transactions.queue_btc_tx(sender_public, sender_private, receiver_public, float(amount)/100000000, identifier)
