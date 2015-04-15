@@ -129,10 +129,13 @@ def get_balance(address):
     return json.loads(resp.content)
 
 def get_asset_id(address): #assumes only one asset type held
-    a = get_balance(address)
-    if len(a['assets'])>0:
-        return a['assets'][0]['id']
-    else:
+    try:
+        a = get_balance(address)
+        if len(a['assets'])>0:
+            return a['assets'][0]['id']
+        else:
+            return ''
+    except:
         return ''
 
 def convert_to_oa(address):
