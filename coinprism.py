@@ -41,7 +41,7 @@ def push_tx_coinprism(rawtx):
         'Content-Type': 'application/json'
     }
     print data
-    resp = requests.post(url, data = data, verify=False, headers = headers)
+    resp = requests.post(url, data=data, verify=False, headers=headers)
     return json.loads(resp.content)
 
 def analyze_raw(rawtx):
@@ -78,7 +78,7 @@ def transfer_unsigned_raw(from_address, to_btc_address, amount, asset_id, fees):
     headers = {
         'Content-Type': 'application/json'
     }
-    resp = requests.post(url, data=data, verify=False, headers = headers)
+    resp = requests.post(url, data=data, verify=False, headers=headers)
 
     return json.loads(resp.content), url, data, headers
 
