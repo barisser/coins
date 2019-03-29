@@ -9,8 +9,8 @@ def sign_tx(unsigned_raw_tx, privatekey):
   detx=bitcoin.deserialize(tx2)
   input_length=len(detx['ins'])
 
-  for i in range(0,input_length):
-    tx2=bitcoin.sign(tx2,i,privatekey)
+  for i in range(0, input_length):
+    tx2=bitcoin.sign(tx2, i, privatekey)
 
   return tx2
 
