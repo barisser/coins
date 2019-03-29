@@ -142,7 +142,7 @@ def transfer():
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
 
-@app.route('/btc/transfer', methods = ['POST'])
+@app.route('/btc/transfer', methods=['POST'])
 def send_btc():
     jsoninput = json.loads(request.data)
     sender_public = str(jsoninput['public_address'])
