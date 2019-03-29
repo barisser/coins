@@ -3,12 +3,14 @@ import coinprism
 import time
 import transactions
 
+
 def worker_cycle():
     print "BEGINNING WORK CYCLE"
     send_plain_btc()
     issue_colors()
     transfer_colors()
     scrape_asset_addresses()
+
 
 def send_plain_btc():
     txs = db.unsent_btc_transfers()
@@ -33,6 +35,7 @@ def send_plain_btc():
             dbstring = "update btc_tx_queue set txhash='"+str(txhash)+"', success=True where randomid='"+str(randomid)+"';"
             db.dbexecute(dbstring, False)
             db.add_to_last_transactions(txhash)
+
 
 def issue_colors():
     txs = db.unsent_issue_txs()
@@ -82,6 +85,7 @@ def transfer_colors():
         else:
             print "DONT HAVE ASSET ADDRESS FOR RANDOMID="+str(randomid)
 
+
 def scrape_asset_addresses():
     addrs = db.assets_without_address()
     for addr in addrs:
@@ -92,6 +96,7 @@ def scrape_asset_addresses():
             k=0
         else:
             db.update_asset_address_on_asset(name, address, asset_address)
+
 
 def transfer_txs_without_asset_address():
     dbstring = "select * from color_transfer_tx_queue where success=false and asset_address='' or asset_address='-1';"
@@ -110,6 +115,7 @@ def transfer_txs_without_asset_address():
             else:
                 dbstring = "update color_transfer_tx_queue set asset_address='"+str(new_asset_address)+"' where randomid='"+str(randomid)+"'';"
                 db.dbexecute(dbstring, False)
+
 
 def process_btc_maintenances():
     open_maintenances = transactions.get_open_btc_maintenance()

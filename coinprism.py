@@ -3,6 +3,7 @@ import json
 import bitcoin
 import os
 
+
 def sign_tx(unsigned_raw_tx, privatekey):
   tx2=unsigned_raw_tx
 
@@ -13,6 +14,7 @@ def sign_tx(unsigned_raw_tx, privatekey):
     tx2=bitcoin.sign(tx2,i,privatekey)
 
   return tx2
+
 
 def pushtx(rawtx):
   url="https://api.chain.com/v1/bitcoin/transactions"
@@ -34,6 +36,7 @@ def pushtx(rawtx):
   else:
     return "None"
 
+
 def push_tx_coinprism(rawtx):
     url = "https://api.coinprism.com/v1/sendrawtransaction"
     data = rawtx
@@ -43,6 +46,7 @@ def push_tx_coinprism(rawtx):
     print data
     resp = requests.post(url, data = data, verify=False, headers = headers)
     return json.loads(resp.content)
+
 
 def analyze_raw(rawtx):
     data = {}
@@ -55,6 +59,7 @@ def analyze_raw(rawtx):
     url = "https://api.coinprism.com/v1/analyzerawtransactions"
     resp = requests.post(url, data=data, headers=headers, verify=False)
     return json.loads(resp.content)
+
 
 def transfer_unsigned_raw(from_address, to_btc_address, amount, asset_id, fees):
     to_btc_address = convert_to_oa(to_btc_address)
@@ -82,6 +87,7 @@ def transfer_unsigned_raw(from_address, to_btc_address, amount, asset_id, fees):
 
     return json.loads(resp.content), url, data, headers
 
+
 def issue_asset_unsigned_raw(from_address, to_btc_address, amount, metadata, fees):
     data = {}
     to_oa_address = convert_to_oa(to_btc_address)
@@ -96,6 +102,7 @@ def issue_asset_unsigned_raw(from_address, to_btc_address, amount, metadata, fee
 
     return json.loads(resp.content)
 
+
 def issue_asset(from_address, to_btc_address, amount, metadata, fees, private_key):
     rawtx = issue_asset_unsigned_raw(from_address, to_btc_address, amount, metadata, fees)
     print rawtx
@@ -107,6 +114,7 @@ def issue_asset(from_address, to_btc_address, amount, metadata, fees, private_ke
         return resp
     else:
         return ''
+
 
 def transfer_asset(from_address, to_btc_address, amount, metadata, fees, private_key, asset_id):
     rawtx = transfer_unsigned_raw(from_address, to_btc_address, amount, asset_id, fees)
@@ -123,10 +131,12 @@ def transfer_asset(from_address, to_btc_address, amount, metadata, fees, private
     else:
         return 'Failed to transfer '+(from_address)+" "+str(to_btc_address)
 
+
 def get_balance(address):
     url = "https://api.coinprism.com/v1/addresses/"+str(address)
     resp = requests.get(url, verify=False)
     return json.loads(resp.content)
+
 
 def get_asset_id(address): #assumes only one asset type held
     try:
@@ -138,6 +148,7 @@ def get_asset_id(address): #assumes only one asset type held
     except:
         return ''
 
+
 def convert_to_oa(address):
     r = get_balance(address)
     if 'asset_address' in r:
@@ -147,11 +158,13 @@ def convert_to_oa(address):
         print r
         return ""
 
+
 def get_address_holding_asset_address(asset_address):
     a = requests.get("https://api.coinprism.com/v1/assets/"+str(asset_address)+"/owners", verify=False)
     b = a.content
     c = json.loads(b)
     return c
+
 
 def check_btc_balance(public_address):
     url = "https://api.chain.com/v2/bitcoin/addresses/"+str(public_address)+"?api-key-id="+str(os.environ['CHAIN_API_KEY'])

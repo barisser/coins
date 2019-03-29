@@ -1,5 +1,6 @@
 import db
 
+
 def init():
     dbstring = "create table assets (name varchar(300), source_address varchar(400), asset_address varchar(400), metadata varchar(30));"
     db.dbexecute(dbstring, False)
@@ -15,6 +16,7 @@ def init():
 
     dbstring = "create table btc_maintenance (sender_public varchar(300), sender_private varchar(300), receiver_public varchar(300), fee bigint, amount bigint, continue bool, randomid varchar(300), last_sent bigint);"
     db.dbexecute(dbstring, False)
+
 
 def reset():
     dbstring = "drop table assets;drop table color_transfer_tx_queue;drop table color_issue_tx_queue;drop table btc_tx_queue;drop table btc_maintenance"
