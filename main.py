@@ -10,17 +10,21 @@ import db
 app = Flask(__name__, static_url_path='')
 app.config['PROPAGATE_EXCEPTIONS']=True
 
+
 @app.route('/', methods=['GET'])
 def home():
     return app.send_static_file('main.html')
+
 
 @app.route('/docs', methods=['GET'])
 def api_docs():
     return app.send_static_file('docs/index.html')
 
+
 @app.route('/whitepaper', methods=['GET'])
 def whitepaper():
     return app.send_static_file('whitepaper/index.html')
+
 
 @app.route('/backlog')
 def showbacklog():
@@ -30,6 +34,7 @@ def showbacklog():
     response.headers['Content-Type'] = 'application/json'
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
+
 
 @app.route('/colors/issue', methods=['POST'])   #WORKS
 def givenewaddress_specifics():
@@ -58,6 +63,7 @@ def givenewaddress_specifics():
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
 
+
 @app.route('/btc/maintain', methods=['POST'])
 def maintain_btc_balance():
     jsoninput = json.loads(request.data)
@@ -76,6 +82,7 @@ def maintain_btc_balance():
     response.headers['Content-Type'] = 'application/json'
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
+
 
 @app.route('/btc/maintain/kill', methods=['POST'])
 def kill_maintain_balance():
@@ -110,6 +117,7 @@ def get_txhash(identifier=None):
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
 
+
 @app.route('/coinholders/<asset_address>')
 def get_coinholders(asset_address=None):
     responsejson = {}
@@ -119,6 +127,7 @@ def get_coinholders(asset_address=None):
     response.headers['Content-Type'] = 'application/json'
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
+
 
 @app.route('/colors/transfer', methods=['POST'])
 def transfer():
@@ -142,6 +151,7 @@ def transfer():
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
 
+
 @app.route('/btc/transfer', methods = ['POST'])
 def send_btc():
     jsoninput = json.loads(request.data)
@@ -162,6 +172,7 @@ def send_btc():
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
 
+
 @app.route('/addresses/')
 def new_address():
     responsejson={}
@@ -174,6 +185,7 @@ def new_address():
     response.headers['Content-Type'] = 'application/json'
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
+
 
 @app.route('/addresses/brainwallet/<phrase>')
 def brainwallet(phrase=None):
@@ -190,6 +202,7 @@ def brainwallet(phrase=None):
   response.headers['Access-Control-Allow-Origin']= '*'
   return response
 
+
 @app.route('/colors/asset_address/<btc_address>')
 def get_asset_address(btc_address=None):
     a = coinprism.get_asset_id(btc_address)
@@ -200,6 +213,7 @@ def get_asset_address(btc_address=None):
     response.headers['Content-Type'] = 'application/json'
     response.headers['Access-Control-Allow-Origin']= '*'
     return response
+
 
 @app.route('/last_txs')
 def last_txs():
