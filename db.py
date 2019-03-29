@@ -9,6 +9,7 @@ con=None
 urlparse.uses_netloc.append('postgres')
 url = urlparse.urlparse(os.environ['DATABASE_URL'])
 
+
 def dbexecute(sqlcommand, receiveback):
   databasename=os.environ['DATABASE_URL']
   #username=''
@@ -31,29 +32,35 @@ def dbexecute(sqlcommand, receiveback):
   con.close()
   return result
 
+
 def unsent_btc_transfers():
     dbstring = "select * from btc_tx_queue where success='False';"
     a = dbexecute(dbstring, True)
     return a
+
 
 def unsent_issue_txs():
     dbstring = "select * from color_issue_tx_queue where success='False';"
     a = dbexecute(dbstring, True)
     return a
 
+
 def unsent_transfer_txs():
     dbstring = "select * from color_transfer_tx_queue where success='False';"
     a = dbexecute(dbstring, True)
     return a
+
 
 def issued_without_asset_address():
     dbstring = "select * from color_issue_tx_queue where asset_address='' and success=True;"
     a = dbexecute(dbstring, True)
     return a
 
+
 def assets_without_address():
     dbstring = "select * from assets where asset_address='' or asset_address='-1';"
     return dbexecute(dbstring, True)
+
 
 def add_asset(name, source_address, asset_address, metadata):
     r = dbexecute("select count(*) from assets where name='"+str(name)+"';", True)
@@ -61,9 +68,11 @@ def add_asset(name, source_address, asset_address, metadata):
         dbstring = "insert into assets values ('"+str(name)+"', '"+str(source_address)+"', '"+str(asset_address)+"', '"+str(metadata)+"');"
         dbexecute(dbstring, False)
 
+
 def update_asset_address_on_asset(name, source_address, asset_address):
     dbstring = "update assets set asset_address='"+str(asset_address)+"' where name='"+str(name)+"' and source_address='"+str(source_address)+"';"
     dbexecute(dbstring, False)
+
 
 def btc_transactions_with_identifier(identifier):
     dbstring = "select * from btc_tx_queue where randomid='"+str(identifier)+"';"
@@ -73,6 +82,7 @@ def btc_transactions_with_identifier(identifier):
         b.append(x[6])
     return b
 
+
 def color_transfer_transactions_with_identifier(identifier):
     dbstring = "select * from color_transfer_tx_queue where randomid='"+str(identifier)+"';"
     a = dbexecute(dbstring, True)
@@ -81,6 +91,7 @@ def color_transfer_transactions_with_identifier(identifier):
         b.append(x[7])
     return b
 
+
 def color_issue_transactions_with_identifier(identifier):
     dbstring = "select * from color_issue_tx_queue where randomid='"+str(identifier)+"';"
     a = dbexecute(dbstring, True)
@@ -88,6 +99,7 @@ def color_issue_transactions_with_identifier(identifier):
     for x in a:
         b.append(x[7])
     return b
+
 
 def backlog():
     btc = dbexecute("select count(*) from btc_tx_queue where success='false';", True)
@@ -102,10 +114,12 @@ def backlog():
     a['color_issue_backlog'] = issue
     return a
 
+
 def add_to_last_transactions(txhash):
     t = int(time.time())
     dbstring = "insert into last_transactions values ('"+str(txhash)+"', "+str(t)+");"
     dbexecute(dbstring, False)
+
 
 def get_last_transactions(n):
     dbstring = "select * from last_transactions order by timestamp desc limit "+str(n)+";"
